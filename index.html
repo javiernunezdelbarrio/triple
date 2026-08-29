@@ -230,21 +230,21 @@
       <div class="result">
         <div>Sección 1</div>
         <div class="count" id="count1">0</div>
-        <div class="value"><span id="value1">0.00</span> × 0,3</div>
       </div>
       <div class="result">
         <div>Sección 2</div>
         <div class="count" id="count2">0</div>
-        <div class="value"><span id="value2">0.00</span> × 0,3</div>
       </div>
       <div class="result">
         <div>Sección 3</div>
         <div class="count" id="count3">0</div>
-        <div class="value"><span id="value3">0.00</span> × 0,3</div>
       </div>
     </div>
     <div class="total">
-      TOTAL: <span id="total">0.00</span>
+      TOTAL: (<span id="count1total">0</span> ×
+      <span id="count2total">0</span> ×
+      <span id="count3total">0</span>) × 0,3 =
+      <span id="total">0.00</span>
     </div>
     <div class="actions">
       <button onclick="clearAll()">Borrar todas las cruces</button>
@@ -340,20 +340,21 @@ function createSection(sectionIndex, title) {
 sectionData.forEach((s, i) => createSection(i + 1, s.title));
 
 function updateTotals() {
-  let grandTotal = 0;
+  const counts = [];
 
   for (let i = 1; i <= 3; i++) {
     const count = document.querySelectorAll(
       `.pair[data-section="${i}"].selected`
     ).length;
 
-    const value = count * 0.3;
+    counts.push(count);
     document.getElementById(`count${i}`).textContent = count;
-    document.getElementById(`value${i}`).textContent = value.toFixed(2);
-    grandTotal += value;
+    document.getElementById(`count${i}total`).textContent = count;
   }
 
-  document.getElementById('total').textContent = grandTotal.toFixed(2);
+  // Producto de las tres secciones × 0,3
+  const total = counts[0] * counts[1] * counts[2] * 0.3;
+  document.getElementById('total').textContent = total.toFixed(2);
 }
 
 function clearAll() {
