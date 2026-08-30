@@ -193,7 +193,7 @@
       </div>
     </div>
     <div class="total">
-      TOTAL: (<span id="count1total">0</span> × 2) × 0,3 =
+      TOTAL: <span id="count1total">0</span> × 2 =
       <span id="total" class="total-value">0.00</span>
     </div>
     <div class="actions">
@@ -270,7 +270,7 @@ function updateTotals() {
   document.getElementById('count1total').textContent = count;
 
   // Multiplica por 2 y luego por 0.3
-  const total = count * 2 * 0.3;
+  const total = count * 2;
   document.getElementById('total').textContent = total.toFixed(2);
 }
 
