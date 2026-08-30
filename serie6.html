@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boleto - SERIE 6</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 12px;
+    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+  }
+  .ticket {
+    max-width: 980px;
+    margin: auto;
+    background: white;
+    border: 1px solid #bbb;
+    box-shadow: 0 4px 18px rgba(0,0,0,.12);
+    padding: 16px;
+    border-radius: 8px;
+  }
+  h1 {
+    text-align: center;
+    margin: 0 0 6px;
+    font-size: 22px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .section {
+    border-top: 3px solid #111;
+    margin-top: 24px;
+    padding-top: 16px;
+  }
+  .section h2 {
+    text-align: center;
+    margin: 0 0 10px;
+    font-size: 18px;
+  }
+  .instruction {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 14px;
+  }
+
+  .triangle-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .triangle {
+    width: max-content;
+    margin: 0 auto 12px;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pair-row {
+    display: flex;
+    height: 44px;
+    margin-bottom: 2px;
+  }
+  .pair-row .indent {
+    flex: 0 0 calc(var(--indent) * 54px);
+  }
+  .pair {
+    width: 54px;
+    height: 42px;
+    border: 1px solid #c66;
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    padding: 0;
+    touch-action: manipulation;
+  }
+  .pair:hover { background: #fff0f0; }
+  .pair.selected {
+    background: #ffe7e7;
+    color: transparent;
+  }
+  .pair.selected::after {
+    content: "✕";
+    color: #111;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 40px;
+    position: absolute;
+    inset: 0;
+    text-align: center;
+  }
+
+  .summary {
+    margin: 24px auto 0;
+    max-width: 780px;
+    border: 2px solid #222;
+    padding: 14px;
+    background: #fafafa;
+    border-radius: 6px;
+  }
+  .summary h2 {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 18px;
+  }
+  .results {
+    display: flex;
+    justify-content: center;
+  }
+  .result {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .result .count {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .total {
+    margin-top: 14px;
+    padding-top: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 2px solid #222;
+    line-height: 1.4;
+  }
+  .total-value {
+    display: block;
+    font-size: 22px;
+    color: #d32f2f;
+    margin-top: 4px;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .actions button {
+    border: 1px solid #333;
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 300px;
+    touch-action: manipulation;
+  }
+  .actions button:active { background: #eee; }
+
+  @media (min-width: 650px) {
+    body { padding: 24px; }
+    .ticket { padding: 28px; }
+    h1 { font-size: 26px; }
+    .pair-row .indent { flex-basis: calc(var(--indent) * 78px); }
+    .pair { width: 78px; height: 44px; font-size: 14px; }
+    .total { font-size: 20px; }
+    .total-value { display: inline; font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="ticket">
+  <h1>BOLETO SERIE 6</h1>
+  <div class="subtitle">Marca las casillas haciendo clic sobre ellas</div>
+    <div style="text-align: center; margin-bottom: 12px;">
+    <img src="serie6.png" alt="Imagen de la SERIE 6" style="max-width: 100%; height: auto; border-radius: 6px;">
+  </div>
+  <div id="sections"></div>
+
+  <div class="summary">
+    <h2>Cálculo</h2>
+    <div class="results">
+      <div class="result">
+        <div>Parejas Seleccionadas</div>
+        <div class="count" id="count1">0</div>
+      </div>
+    </div>
+    <div class="total">
+      TOTAL: (<span id="count1total">0</span> × 2) × 0,3 =
+      <span id="total" class="total-value">0.00</span>
+    </div>
+    <div class="actions">
+      <button type="button" onclick="clearAll()">Borrar todas las cruces</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'datos_serie_1';
+const sectionsContainer = document.getElementById('sections');
+
+function createSection() {
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.dataset.section = '1';
+
+  const h2 = document.createElement('h2');
+  h2.textContent = 'SERIE 6';
+  section.appendChild(h2);
+
+  const instruction = document.createElement('div');
+  instruction.className = 'instruction';
+  instruction.textContent = 'SERIE 6 · Toca una pareja para marcar/desmarcar';
+  section.appendChild(instruction);
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'triangle-wrapper';
+
+  const triangle = document.createElement('div');
+  triangle.className = 'triangle';
+
+  for (let first = 1; first <= 9; first++) {
+    const row = document.createElement('div');
+    row.className = 'pair-row';
+
+    const indent = document.createElement('div');
+    indent.className = 'indent';
+    indent.style.setProperty('--indent', (first - 1));
+    row.appendChild(indent);
+
+    for (let second = first + 1; second <= 10; second++) {
+      const button = document.createElement('button');
+      button.className = 'pair';
+      button.type = 'button';
+      button.textContent = `${first}-${second}`;
+      button.dataset.section = '1';
+      button.dataset.pair = `${first}-${second}`;
+
+      button.addEventListener('click', () => {
+        button.classList.toggle('selected');
+        updateTotals();
+        saveData();
+      });
+
+      row.appendChild(button);
+    }
+    triangle.appendChild(row);
+  }
+
+  wrapper.appendChild(triangle);
+  section.appendChild(wrapper);
+  sectionsContainer.appendChild(section);
+}
+
+// Inicializar
+createSection();
+loadData();
+
+function updateTotals() {
+  const count = document.querySelectorAll('.pair[data-section="1"].selected').length;
+
+  document.getElementById('count1').textContent = count;
+  document.getElementById('count1total').textContent = count;
+
+  // Multiplica por 2 y luego por 0.3
+  const total = count * 2 * 0.3;
+  document.getElementById('total').textContent = total.toFixed(2);
+}
+
+function saveData() {
+  const selectedPairs = [];
+  document.querySelectorAll('.pair.selected').forEach(btn => {
+    selectedPairs.push(btn.dataset.pair);
+  });
+
+  const state = {
+    pairs: selectedPairs
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return;
+
+  const state = JSON.parse(saved);
+
+  if (state.pairs) {
+    state.pairs.forEach(pair => {
+      const btn = document.querySelector(`.pair[data-section="1"][data-pair="${pair}"]`);
+      if (btn) btn.classList.add('selected');
+    });
+  }
+
+  updateTotals();
+}
+
+function clearAll() {
+  document.querySelectorAll('.pair.selected').forEach(el => {
+    el.classList.remove('selected');
+  });
+
+  localStorage.removeItem(STORAGE_KEY);
+  updateTotals();
+}
+</script>
+</body>
+</html>

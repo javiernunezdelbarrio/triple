@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boleto - Triple</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 12px;
+    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+  }
+  .ticket {
+    max-width: 980px;
+    margin: auto;
+    background: white;
+    border: 1px solid #bbb;
+    box-shadow: 0 4px 18px rgba(0,0,0,.12);
+    padding: 16px;
+    border-radius: 8px;
+  }
+  h1 {
+    text-align: center;
+    margin: 0 0 6px;
+    font-size: 22px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .section {
+    border-top: 3px solid #111;
+    margin-top: 24px;
+    padding-top: 16px;
+  }
+  .section h2 {
+    text-align: center;
+    margin: 0 0 10px;
+    font-size: 18px;
+  }
+  .instruction {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 14px;
+  }
+
+  /* Contenedor del triángulo con scroll horizontal de seguridad */
+  .triangle-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .triangle {
+    width: max-content;
+    margin: 0 auto 12px;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pair-row {
+    display: flex;
+    height: 44px;
+    margin-bottom: 2px;
+  }
+  .pair-row .indent {
+    flex: 0 0 calc(var(--indent) * 54px);
+  }
+  .pair {
+    width: 54px;
+    height: 42px;
+    border: 1px solid #c66;
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    padding: 0;
+    touch-action: manipulation;
+  }
+  .pair:hover { background: #fff0f0; }
+  .pair.selected {
+    background: #ffe7e7;
+    color: transparent;
+  }
+  .pair.selected::after {
+    content: "✕";
+    color: #111;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 40px;
+    position: absolute;
+    inset: 0;
+    text-align: center;
+  }
+
+  .order-title {
+    text-align: center;
+    font-size: 13px;
+    margin: 12px 0 8px;
+    font-weight: bold;
+  }
+  .orders {
+    width: 100%;
+    max-width: 780px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: #c66;
+    border: 1px solid #c66;
+  }
+  .order {
+    background: white;
+    min-width: 0;
+  }
+  .order-label {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+  }
+  .order input {
+    width: 100%;
+    height: 38px;
+    border: 0;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+    background: white;
+  }
+  .order input:focus { background: #fff7f7; }
+
+  .summary {
+    margin: 24px auto 0;
+    max-width: 780px;
+    border: 2px solid #222;
+    padding: 14px;
+    background: #fafafa;
+    border-radius: 6px;
+  }
+  .summary h2 {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 18px;
+  }
+  .results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .result {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .result .count {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .total {
+    margin-top: 14px;
+    padding-top: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 2px solid #222;
+    line-height: 1.4;
+  }
+  .total-value {
+    display: block;
+    font-size: 22px;
+    color: #d32f2f;
+    margin-top: 4px;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .actions button {
+    border: 1px solid #333;
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 300px;
+    touch-action: manipulation;
+  }
+  .actions button:active { background: #eee; }
+
+  .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 4px;
+  }
+  .status button {
+    border: 1px solid #aaa;
+    background: white;
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    touch-action: manipulation;
+  }
+  .status button.active {
+    border-color: #222;
+    background: #222;
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Ajustes para pantallas de escritorio */
+  @media (min-width: 650px) {
+    body { padding: 24px; }
+    .ticket { padding: 28px; }
+    h1 { font-size: 26px; }
+    .pair-row .indent { flex-basis: calc(var(--indent) * 78px); }
+    .pair { width: 78px; height: 44px; font-size: 14px; }
+    .orders { grid-template-columns: repeat(10, 1fr); }
+    .total { font-size: 20px; }
+    .total-value { display: inline; font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="ticket">
+  <h1>BOLETO DE LA TRIPLE</h1>
+  <div class="subtitle">Marca las casillas haciendo clic sobre ellas</div>
+
+  <div class="status">
+    <span><b>Resultado:</b></span>
+    <button id="bienBtn" type="button" onclick="setStatus('BIEN')">BIEN</button>
+    <button id="malBtn" type="button" onclick="setStatus('MAL')">MAL</button>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="summary">
+    <h2>Cálculo</h2>
+    <div class="results">
+      <div class="result">
+        <div>Sección 1</div>
+        <div class="count" id="count1">0</div>
+      </div>
+      <div class="result">
+        <div>Sección 2</div>
+        <div class="count" id="count2">0</div>
+      </div>
+      <div class="result">
+        <div>Sección 3</div>
+        <div class="count" id="count3">0</div>
+      </div>
+    </div>
+    <div class="total">
+      TOTAL: (<span id="count1total">0</span> ×
+      <span id="count2total">0</span> ×
+      <span id="count3total">0</span>) × 0,3 =
+      <span id="total" class="total-value">0.00</span>
+    </div>
+    <div class="actions">
+      <button type="button" onclick="clearAll()">Borrar todas las cruces</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sectionsContainer = document.getElementById('sections');
+const sectionData = [
+  { title: 'Primera de la Triple' },
+  { title: 'Segunda de la Triple' },
+  { title: 'Tercera de la Triple' }
+];
+
+let currentStatus = '';
+
+function createSection(sectionIndex, title) {
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.dataset.section = sectionIndex;
+
+  const h2 = document.createElement('h2');
+  h2.textContent = title;
+  section.appendChild(h2);
+
+  const instruction = document.createElement('div');
+  instruction.className = 'instruction';
+  instruction.textContent = `${title} · Toca una pareja para marcar/desmarcar`;
+  section.appendChild(instruction);
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'triangle-wrapper';
+
+  const triangle = document.createElement('div');
+  triangle.className = 'triangle';
+
+  for (let first = 1; first <= 9; first++) {
+    const row = document.createElement('div');
+    row.className = 'pair-row';
+
+    const indent = document.createElement('div');
+    indent.className = 'indent';
+    indent.style.setProperty('--indent', (first - 1));
+    row.appendChild(indent);
+
+    for (let second = first + 1; second <= 10; second++) {
+      const button = document.createElement('button');
+      button.className = 'pair';
+      button.type = 'button';
+      button.textContent = `${first}-${second}`;
+      button.dataset.section = sectionIndex;
+      button.dataset.pair = `${first}-${second}`;
+
+      button.addEventListener('click', () => {
+        button.classList.toggle('selected');
+        updateTotals();
+        saveData(); // Guardar cambios al hacer clic
+      });
+
+      row.appendChild(button);
+    }
+    triangle.appendChild(row);
+  }
+
+  wrapper.appendChild(triangle);
+  section.appendChild(wrapper);
+
+  const orderTitle = document.createElement('div');
+  orderTitle.className = 'order-title';
+  orderTitle.textContent = 'Orden sustituciones';
+  section.appendChild(orderTitle);
+
+  const orders = document.createElement('div');
+  orders.className = 'orders';
+
+  for (let i = 1; i <= 10; i++) {
+    const order = document.createElement('div');
+    order.className = 'order';
+
+    const label = document.createElement('div');
+    label.className = 'order-label';
+    label.textContent = `${i}°`;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.inputMode = 'numeric';
+    input.maxLength = 3;
+    input.setAttribute('aria-label', `Orden ${i}`);
+    input.dataset.orderIndex = `${sectionIndex}-${i}`;
+
+    input.addEventListener('input', saveData); // Guardar cuando se escribe
+
+    order.appendChild(label);
+    order.appendChild(input);
+    orders.appendChild(order);
+  }
+
+  section.appendChild(orders);
+  sectionsContainer.appendChild(section);
+}
+
+// Inicializar la interfaz
+sectionData.forEach((s, i) => createSection(i + 1, s.title));
+loadData(); // Cargar datos guardados al entrar
+
+function updateTotals() {
+  const counts = [];
+
+  for (let i = 1; i <= 3; i++) {
+    const count = document.querySelectorAll(
+      `.pair[data-section="${i}"].selected`
+    ).length;
+
+    counts.push(count);
+    document.getElementById(`count${i}`).textContent = count;
+    document.getElementById(`count${i}total`).textContent = count;
+  }
+
+  const total = counts[0] * counts[1] * counts[2] * 0.3;
+  document.getElementById('total').textContent = total.toFixed(2);
+}
+
+function setStatus(status) {
+  currentStatus = status;
+  document.getElementById('bienBtn').classList.toggle('active', status === 'BIEN');
+  document.getElementById('malBtn').classList.toggle('active', status === 'MAL');
+  saveData();
+}
+
+// FUNCIONES DE GUARDADO Y CARGA (localStorage)
+
+function saveData() {
+  const selectedPairs = [];
+  document.querySelectorAll('.pair.selected').forEach(btn => {
+    selectedPairs.push({
+      section: btn.dataset.section,
+      pair: btn.dataset.pair
+    });
+  });
+
+  const inputsData = {};
+  document.querySelectorAll('.order input').forEach(input => {
+    if (input.value) {
+      inputsData[input.dataset.orderIndex] = input.value;
+    }
+  });
+
+  const state = {
+    pairs: selectedPairs,
+    inputs: inputsData,
+    status: currentStatus
+  };
+
+  localStorage.setItem('triple_ticket_data', JSON.stringify(state));
+}
+
+function loadData() {
+  const saved = localStorage.getItem('triple_ticket_data');
+  if (!saved) return;
+
+  const state = JSON.parse(saved);
+
+  // Restaurar parejas seleccionadas
+  if (state.pairs) {
+    state.pairs.forEach(item => {
+      const btn = document.querySelector(`.pair[data-section="${item.section}"][data-pair="${item.pair}"]`);
+      if (btn) btn.classList.add('selected');
+    });
+  }
+
+  // Restaurar textos de las casillas de orden
+  if (state.inputs) {
+    Object.keys(state.inputs).forEach(key => {
+      const input = document.querySelector(`input[data-order-index="${key}"]`);
+      if (input) input.value = state.inputs[key];
+    });
+  }
+
+  // Restaurar estado (BIEN/MAL)
+  if (state.status) {
+    setStatus(state.status);
+  }
+
+  updateTotals();
+}
+
+function clearAll() {
+  document.querySelectorAll('.pair.selected').forEach(el => {
+    el.classList.remove('selected');
+  });
+  document.querySelectorAll('.order input').forEach(input => {
+    input.value = '';
+  });
+  currentStatus = '';
+  document.getElementById('bienBtn').classList.remove('active');
+  document.getElementById('malBtn').classList.remove('active');
+  
+  localStorage.removeItem('triple_ticket_data'); // Borrar almacenamiento
+  updateTotals();
+}
+</script>
+</body>
+</html>
