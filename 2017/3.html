@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI Gijón 2017 - Día 3</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Concurso de Saltos Internacional de Gijón</h1>
+        <p>Centro Hípico de Las Mestas | Edición 2017 - Día 3</p>
+    </header>
+
+    <div class="layout-container">
+        
+        <aside class="sidebar">
+            <div class="search-box">
+                <label for="input-busqueda">🔎 Buscador en vivo</label>
+                <input 
+                    type="text" 
+                    id="input-busqueda" 
+                    placeholder="Jinete, caballo..." 
+                    onkeyup="buscarEnJornada()"
+                >
+            </div>
+
+            <h2>Navegación</h2>
+            <a href="../index.html" class="global-btn" style="text-align: center; text-decoration: none; display: block; margin-bottom: 1.5rem; background-color: #1b5e20; color: white; padding: 10px; border-radius: 6px; font-weight: bold;">🏠 Volver al Inicio</a>
+
+            <h3 style="margin-top: 1rem; color: #1b5e20;">Pruebas del Día</h3>
+            <ul class="test-list" id="lista-pruebas-dia">
+                </ul>
+        </aside>
+
+        <main class="content">
+            <header class="content-header">
+                <div class="badge-tag" id="badge-edicion">Edición 2017</div>
+                <h2 id="titulo-jornada">Jornada 3 - Día 3 (2017)</h2>
+                <p id="subtitulo-jornada">Selecciona una prueba para consultar su clasificación y gráficos</p>
+            </header>
+
+            <section class="csv-import-card" style="background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                                
+                <div class="csv-upload-controls" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div class="input-group" style="flex: 1; min-width: 170px;">
+                        <label for="select-prueba-activa" style="font-weight: bold; display: block; margin-bottom: 5px;">Prueba a visualizar:</label>
+                        <select id="select-prueba-activa" onchange="cambiarPruebaActiva(this.value)" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 1rem;">
+                            </select>
+                    </div>
+                    
+                </div>
+                <div id="csv-status" class="status-msg" style="margin-top: 10px;"></div>
+            </section>
+
+            <section class="cards-grid">
+                <div class="card">
+                    <h3>Prueba Visualizada</h3>
+                    <p class="card-value" id="stat-pruebas" style="font-size: 1.2rem; color: #1b5e20;">-</p>
+                </div>
+                <div class="card">
+                    <h3>Binomios en Pista</h3>
+                    <p class="card-value" id="stat-binomios">0</p>
+                </div>
+                <div class="card">
+                    <h3>Recorridos sin Falta (Ceros)</h3>
+                    <p class="card-value" id="stat-ceros">0</p>
+                </div>
+                <div class="card">
+                    <h3>Mejor Tiempo</h3>
+                    <p class="card-value" id="stat-tiempo">--</p>
+                </div>
+            </section>
+
+            <section class="chart-container" style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); height: 350px;">
+                <h3 id="titulo-grafico" style="margin-top: 0; color: #1b5e20;">📊 Gráfico de Tiempos</h3>
+                <div style="position: relative; height: 280px; width: 100%;">
+                    <img src="gijon.jpg" alt="CSI Gijón" class="imagen-fija">
+                </div>
+            </section>
+
+            <section class="table-container">
+                <div class="table-header">
+                    <h3 id="titulo-tabla">Clasificación General</h3>
+                </div>
+                <table id="tabla-resultados">
+                    </table>
+            </section>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

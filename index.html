@@ -1,193 +1,742 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Series y Boletos</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text: #f8fafc;
-      --text-dim: #94a3b8;
-      --accent: #38bdf8;
-      --accent-triple: #f43f5e;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024/CSI GIJÓN - Buscador Global e Histórico</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        .blog-container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        /* Buscador Principal */
+        .search-banner {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-top: 5px solid #1b5e20;
+        }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.15) 0px, transparent 50%);
-      background-attachment: fixed;
-      color: var(--text);
-      min-height: 100vh;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .search-banner label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1b5e20;
+            display: block;
+            margin-bottom: 8px;
+        }
 
-    header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+        .search-banner input {
+            width: 100%;
+            max-width: 550px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
 
-    header h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
+        .search-banner input:focus {
+            border-color: #1b5e20;
+            box-shadow: 0 0 8px rgba(27, 94, 32, 0.2);
+        }
 
-    header p {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-    }
+        /* Panel de Resultados del Buscador Global */
+        #global-results-panel {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #1b5e20;
+            display: none;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 16px;
-      width: 100%;
-      max-width: 900px;
-    }
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 20px 16px;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      touch-action: manipulation;
-    }
+        .results-header h3 {
+            margin: 0;
+            color: #1b5e20;
+        }
 
-    .card:hover, .card:active {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
-    }
+        .btn-volver {
+            background-color: #f4f6f8;
+            color: #1b5e20;
+            border: 1px solid #1b5e20;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
 
-    .card .icon {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
+        .btn-volver:hover {
+            background-color: #1b5e20;
+            color: #ffffff;
+        }
 
-    .card .number {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
-    .card .label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 4px;
-    }
+        .results-table th, .results-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 0.9rem;
+        }
 
-    /* Tarjeta especial para Triple */
-    .card.special {
-      grid-column: 1 / -1;
-      background: linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(30, 41, 59, 0.8) 100%);
-      border-color: rgba(244, 63, 94, 0.3);
-      padding: 24px;
-    }
+        .results-table th {
+            background-color: #f4f6f8;
+            color: #1b5e20;
+        }
 
-    .card.special:hover, .card.special:active {
-      border-color: var(--accent-triple);
-      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.3);
-    }
+        .link-jornada {
+            color: #1b5e20;
+            font-weight: bold;
+            text-decoration: none;
+            background: #e8f5e9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
 
-    .card.special .number {
-      color: #fda4af;
-      font-size: 1.4rem;
-    }
+        .link-jornada:hover {
+            background: #1b5e20;
+            color: #fff;
+        }
 
-    @media (min-width: 600px) {
-      .grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      
-      .card.special {
-        grid-column: span 4;
-      }
-    }
-  </style>
+        /* Feed Blog */
+        .year-post {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid #eef0f2;
+        }
+
+        .year-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .year-header h2 {
+            margin: 0;
+            color: #1b5e20;
+            font-size: 1.8rem;
+        }
+
+        .year-badge {
+            background: #e8f5e9;
+            color: #1b5e20;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .year-description {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .days-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+        }
+
+        .day-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            padding: 12px 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #222;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .day-btn span {
+            font-size: 0.75rem;
+            font-weight: normal;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .day-btn:hover {
+            background-color: #1b5e20;
+            color: #ffffff;
+            border-color: #1b5e20;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
+
+        .no-edition-post {
+            background: #fff8e1;
+            border-left: 5px solid #ffa000;
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2.5rem;
+            color: #5d4037;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>CSI GIJÓN</h1>
-    <p>Selecciona una opción para acceder</p>
-  </header>
+    <header class="main-header">
+        <h1>Concurso de Saltos Internacional de Gijón</h1>
+        <p>Centro Hípico de Las Mestas | Archivo Histórico </p>
+    </header>
 
-  <main class="grid">
-    <a href="serie1.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 1</div>
-    </a>
+    <div class="blog-container">
 
-    <a href="serie2.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 2</div>
-    </a>
+        <div class="search-banner">
+            <label for="search-input">🔍 Buscador Global del Histórico</label>
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Busca cualquier jinete, caballo, año o prueba..." 
+                oninput="ejecutarBusquedaGlobal(event)"
+            >
+        </div>
 
-    <a href="serie3.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 3</div>
-    </a>
+        <div class="notes-container" style="margin: 2rem 0; padding: 1.5rem; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px;">
+    <h3 style="margin-top: 0;">📝 Mis Notas</h3>
+    <textarea id="appNotesInput" placeholder="Escribe aquí tus observaciones, favoritos o recordatorios..." rows="4" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+        <span id="notesStatus" style="font-size: 0.85rem; color: #28a745; font-weight: bold;"></span>
+        <button type="button" onclick="limpiarNotas()" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Borrar notas</button>
+    </div>
+</div>
 
-    <a href="serie4.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 4</div>
-    </a>
+        <section id="global-results-panel">
+            <div class="results-header">
+                <h3>🔎 Coincidencias encontradas:</h3>
+                <button class="btn-volver" onclick="limpiarBusqueda()">↩ Volver a las ediciones</button>
+            </div>
+            <div id="results-content"></div>
+        </section>
 
-    <a href="serie5.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 5</div>
-    </a>
+        <div class="triptico-container">
 
-    <a href="serie6.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 6</div>
-    </a>
+            <aside class="columna-triptico columna-izquierda">
+                <h2 class="columna-titulo">🌍 2026 Global</h2>
+                <a href="Global/global.html" class="card-edicion card-global">
+                    <div class="card-badge">Internacional</div>
+                    <div class="card-year">2026</div>
+                    <div class="card-info">
+                        <h3>Otras Competiciones</h3>
+                        <p><br><br><br></p>
+                    </div>
+                </a>
+            </aside>
 
-    <a href="serie7.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 7</div>
-    </a>
+            <aside class="columna-triptico columna-derecha">
+                <h2 class="columna-titulo">🐴 Gijón 2026</h2>
+                <a href="2026/actual.html" class="card-edicion card-gijon-2026">
+                    <div class="card-badge badge-destacado">ACTUAL</div>
+                    <div class="card-year">2026</div>
+                    <div class="card-info">
+                        <h3>CSIO Gijón 2026</h3>
+                        <p><br><br><br></p>
+                    </div>
+                </a>
+            </aside>
 
-    <a href="serie8.html" class="card">
-      <div class="icon">📁</div>
-      <div class="number">Serie 8</div>
-    </a>
+    <main class="ediciones-center-container">
+        <div class="grid-ediciones">
+            </div>
+    </main>
 
-    <a href="triple.html" class="card special">
-      <div class="icon">🎟️</div>
-      <div class="number">Boleto Triple</div>
-    </a>
-  </main>
+</div>
 
+        <div id="blog-feed">
+
+            <article class="year-post" data-year="2024">
+                <div class="year-header">
+                    <h2>🏆 Edición 2025</h2>
+                    <span class="year-badge">CSI 4* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: OLIVER LAZARUS</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2025/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2025/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2025/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2025/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2025/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2025/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2024">
+                <div class="year-header">
+                    <h2>🏆 Edición 2024</h2>
+                    <span class="year-badge">CSI 4* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: SANNE THIJSSEN</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2024/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2024/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2024/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2024/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2024/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2024/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2023">
+                <div class="year-header">
+                    <h2>🏆 Edición 2023</h2>
+                    <span class="year-badge">CSI 4* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: HARRY ALLEN</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2023/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2023/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2023/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2023/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2023/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2023/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2022">
+                <div class="year-header">
+                    <h2>🏆 Edición 2022</h2>
+                    <span class="year-badge">CSI 4* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: KEVIN GONZÁLEZ DE ZÁRATE FERNÁNDEZ</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2022/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2022/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2022/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2022/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2022/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2022/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+            <div class="no-edition-post" data-year="2020 2021">
+                <h3 style="margin: 0 0 5px 0; color: #e65100;">Ediciones 2020 y 2021 no celebradas</h3>
+                <p style="margin: 0; font-size: 0.9rem;">Suspendidas debido a la pandemia de la COVID-19.</p>
+            </div>
+
+            <article class="year-post" data-year="2019">
+                <div class="year-header">
+                    <h2>🏆 Edición 2019</h2>
+                    <span class="year-badge">CSIO 5* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: GREG PATRICK BRODERICK</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2019/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2019/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2019/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2019/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2019/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2018">
+                <div class="year-header">
+                    <h2>🏆 Edición 2018</h2>
+                    <span class="year-badge">CSIO 5* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: RICHARD HOWLEY</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2018/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2018/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2018/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2018/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2018/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2017">
+                <div class="year-header">
+                    <h2>🏆 Edición 2017</h2>
+                    <span class="year-badge">CSIO 5* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: GERARDO MENÉNDEZ MIERES</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2017/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2017/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2017/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2017/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2017/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2017/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+            <article class="year-post" data-year="2016">
+                <div class="year-header">
+                    <h2>🏆 Edición 2016</h2>
+                    <span class="year-badge">CSIO 5* Gijón</span>
+                </div>
+                <h4 style="color: #38bdf8;">GRAN PREMIO: DERMOTT LENNON</h4>
+                <p class="year-description"></p>
+                <div class="days-list">
+                    <a href="2016/1.html" class="day-btn">📅 Día 1 <span>Jornada 1</span></a>
+                    <a href="2016/2.html" class="day-btn">📅 Día 2 <span>Jornada 2</span></a>
+                    <a href="2016/3.html" class="day-btn">📅 Día 3 <span>Jornada 3</span></a>
+                    <a href="2016/4.html" class="day-btn">📅 Día 4 <span>Jornada 4</span></a>
+                    <a href="2016/5.html" class="day-btn">📅 Día 5 <span>Jornada 5</span></a>
+                    <a href="2016/6.html" class="day-btn">📅 Día 6 <span>Jornada 6</span></a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        // Array para acumular la base de datos de todos los años
+let baseDatosGlobal = [];
+let csvsCargados = false; // Para evitar leer los CSVs en cada pulsación de tecla
+let paginaActual = 1;
+const RESULTADOS_POR_PAGINA = 30;
+let coincidenciasGlobales = []; // Guardará el total de resultados para ir paginando
+
+async function indexarCSVHistoricos() {
+    if (csvsCargados) return; // Si ya los leyó una vez, no repite el trabajo
+
+    // 1. Lista unificada de pruebas (2024 y 2025)
+    const archivosCSV = [
+        // --- 2016 ---
+        { ano: 2016, dia: 1, prueba: "TROFEO DICAR", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR.csv", ruta: "2016/1.html" },
+        { ano: 2016, dia: 1, prueba: "TROFEO COCACOLA", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO COCACOLA.csv", ruta: "2016/1.html" },
+        { ano: 2016, dia: 1, prueba: "TROFEO FUNERARIA GIJONESA", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO FUNERARIA GIJONESA.csv", ruta: "2016/1.html" },
+        { ano: 2016, dia: 2, prueba: "TROFEO MAHOU", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO MAHOU.csv", ruta: "2016/2.html" },
+        { ano: 2016, dia: 2, prueba: "TROFEO SAR PRINCESA DE ASTURIAS", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO SAR PRINCESA DE ASTURIAS.csv", ruta: "2016/3.html" },
+        { ano: 2016, dia: 3, prueba: "TROFEO DICAR", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR II.csv", ruta: "2016/3.html" },
+        { ano: 2016, dia: 3, prueba: "TROFEO CASINO DE ASTURIAS", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO CASINO DE ASTURIAS.csv", ruta: "2016/3.html" },
+        { ano: 2016, dia: 3, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO CENTRAL LECHERA.csv", ruta: "2016/3.html" },
+        { ano: 2016, dia: 4, prueba: "COPA DE NACIONES", csv: "CSV/2016/CSIO GIJÓN 2016 - COPA DE NACIONES.csv", ruta: "2016/4.html" },
+        { ano: 2016, dia: 4, prueba: "TROFEO OQUENDO", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO OQUENDO.csv", ruta: "2016/4.html" },
+        { ano: 2016, dia: 5, prueba: "TROFEO DICAR", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR III.csv", ruta: "2016/5.html" },
+        { ano: 2016, dia: 5, prueba: "TROFEO VEOLIA", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO VEOLIA.csv", ruta: "2016/5.html" },
+        { ano: 2016, dia: 5, prueba: "TROFEO CAJA RURAL GIJON", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO CAJA RURAL GIJON.csv", ruta: "2016/5.html" },
+        { ano: 2016, dia: 6, prueba: "TROFEO EL GAITERO", csv: "CSV/2016/CSIO GIJÓN 2016 - TROFEO GAITERO.csv", ruta: "2016/6.html" },
+        { ano: 2016, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2016/CSIO GIJÓN 2016 - GRAN PREMIO DE GIJON.csv", ruta: "2016/6.html" },
+
+        // --- 2017 ---
+        { ano: 2017, dia: 1, prueba: "TROFEO BOXBAR", csv: "CSV/2017/CSIO 2017 - TROFEO BOXBAR.csv", ruta: "2017/1.html" },
+        { ano: 2017, dia: 1, prueba: "TROFEO CASINO DE ASTURIAS", csv: "CSV/2017/CSIO 2017 - TROFEO CASINO.csv", ruta: "2017/1.html" },
+        { ano: 2017, dia: 1, prueba: "TROFEO LACERA", csv: "CSV/2017/CSIO 2017 - TROFEO LACERA.csv", ruta: "2017/1.html" },
+        { ano: 2017, dia: 2, prueba: "TROFEO COCACOLA", csv: "CSV/2017/CSIO 2017 - TROFEO COCACOLA.csv", ruta: "2017/2.html" },
+        { ano: 2017, dia: 2, prueba: "TROFEO OQUENDO", csv: "CSV/2017/CSIO 2017 - OQUENDO.csv", ruta: "2017/3.html" },
+        { ano: 2017, dia: 3, prueba: "TROFEO BOXBAR", csv: "CSV/2017/CSIO 2017 - TROFEO BOXBAR II.csv", ruta: "2017/3.html" },
+        { ano: 2017, dia: 3, prueba: "TROFEO TRYP REY PELAYO", csv: "CSV/2017/CSIO 2017 - TROFEO TRYP REY PELAYO.csv", ruta: "2017/3.html" },
+        { ano: 2017, dia: 3, prueba: "TROFEO MAHOU", csv: "CSV/2017/CSIO 2017 - TROFEO MAHOU.csv", ruta: "2017/3.html" },
+        { ano: 2017, dia: 4, prueba: "COPA DE NACIONES", csv: "CSV/2017/CSIO 2017 - COPA DE NACIONES.csv", ruta: "2017/4.html" },
+        { ano: 2017, dia: 4, prueba: "TROFEO ASTURIANA", csv: "CSV/2017/CSIO 2017 - TROFEO ASTURIANA.csv", ruta: "2017/4.html" },
+        { ano: 2017, dia: 5, prueba: "TROFEO BOXBAR", csv: "CSV/2017/CSIO 2017 - TROFEO BOXBAR III.csv", ruta: "2017/5.html" },
+        { ano: 2017, dia: 5, prueba: "TROFEO EL GAITERO", csv: "CSV/2017/CSIO 2017 - TROFEO GAITERO.csv", ruta: "2017/5.html" },
+        { ano: 2017, dia: 5, prueba: "TROFEO CAJA RURAL GIJON", csv: "CSV/2017/CSIO 2017 - TROFEO CAJA RURAL GIJON.csv", ruta: "2017/5.html" },
+        { ano: 2017, dia: 6, prueba: "TROFEO VEOLIA", csv: "CSV/2017/CSIO 2017 - TROFEO VEOLIA.csv", ruta: "2017/6.html" },
+        { ano: 2017, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2017/CSIO 2017 - GRAN PREMIO DE GIJON.csv", ruta: "2017/6.html" },
+
+        // --- 2018 ---
+        { ano: 2018, dia: 1, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA.csv", ruta: "2018/1.html" },
+        { ano: 2018, dia: 1, prueba: "TROFEO COCACOLA", csv: "CSV/2018/CSIO 2018 - TROFEO COCACOLA.csv", ruta: "2018/1.html" },
+        { ano: 2018, dia: 1, prueba: "TROFEO LACERA", csv: "CSV/2018/CSIO 2018 - TROFEO LACERA.csv", ruta: "2018/1.html" },
+        { ano: 2018, dia: 2, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA II.csv", ruta: "2018/2.html" },
+        { ano: 2018, dia: 2, prueba: "TROFEO VEOLIA", csv: "CSV/2018/CSIO 2018 - VEOLIA.csv", ruta: "2018/2.html" },
+        { ano: 2018, dia: 2, prueba: "TROFEO OQUENDO", csv: "CSV/2018/CSIO 2018 - OQUENDO.csv", ruta: "2018/2.html" },
+        { ano: 2018, dia: 3, prueba: "COPA DE NACIONES", csv: "CSV/2018/CSIO 2018 - TROFEO COPA NACIONES.csv", ruta: "2018/3.html" },
+        { ano: 2018, dia: 3, prueba: "TROFEO MAHOU", csv: "CSV/2018/CSIO 2018 - TROFEO MAHOU.csv", ruta: "2018/3.html" },
+        { ano: 2018, dia: 4, prueba: "TROFEO CASINO DE ASTURIAS", csv: "CSV/2018/CSIO 2018 - CASINO.csv", ruta: "2018/4.html" },
+        { ano: 2018, dia: 4, prueba: "TROFEO CAJA RURAL", csv: "CSV/2018/CSIO 2018 - TROFEO CAJA RURAL.csv", ruta: "2018/4.html" },
+        { ano: 2018, dia: 4, prueba: "TROFEO CENTRAL LECHERA", csv: "CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA III.csv", ruta: "2018/4.html" },
+        { ano: 2018, dia: 5, prueba: "TROFEO EL GAITERO", csv: "CSV/2018/CSIO 2018 - TROFEO GAITERO.csv", ruta: "2018/5.html" },
+        { ano: 2018, dia: 5, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2018/CSIO 2018 - GRAN PREMIO DE GIJON.csv", ruta: "2018/5.html" },
+
+        // --- 2019 ---
+        { ano: 2019, dia: 1, prueba: "TROFEO COCACOLA", csv: "CSV/2019/CSIO 2019 - TROFEO COCACOLA.csv", ruta: "2019/1.html" },
+        { ano: 2019, dia: 1, prueba: "TROFEO LACERA", csv: "CSV/2019/CSIO 2019 - TROFEO LACERA.csv", ruta: "2019/1.html" },
+        { ano: 2019, dia: 1, prueba: "TROFEO EMA", csv: "CSV/2019/CSIO 2019 - TROFEO EMA.csv", ruta: "2019/1.html" },
+        { ano: 2019, dia: 2, prueba: "TROFEO COCACOLA", csv: "CSV/2019/CSIO 2019 - TROFEO COCACOLA II.csv", ruta: "2019/2.html" },
+        { ano: 2019, dia: 2, prueba: "TROFEO VEOLIA", csv: "CSV/2019/CSIO 2019 - VEOLIA.csv", ruta: "2019/2.html" },
+        { ano: 2019, dia: 2, prueba: "TROFEO OQUENDO", csv: "CSV/2019/CSIO 2019 - OQUENDO.csv", ruta: "2019/2.html" },
+        { ano: 2019, dia: 3, prueba: "COPA DE NACIONES", csv: "CSV/2019/CSIO 2019 - TROFEO COPA NACIONES.csv", ruta: "2019/3.html" },
+        { ano: 2019, dia: 3, prueba: "TROFEO MAHOU", csv: "CSV/2019/CSIO 2019 - TROFEO MAHOU.csv", ruta: "2019/3.html" },
+        { ano: 2019, dia: 4, prueba: "TROFEO COCACOLA", csv: "CSV/2019/CSIO 2019 - COCACOLA III.csv", ruta: "2019/4.html" },
+        { ano: 2019, dia: 4, prueba: "TROFEO CASINO DE ASTURIAS", csv: "CSV/2019/CSIO 2019 - TROFEO CASINO.csv", ruta: "2019/4.html" },
+        { ano: 2019, dia: 4, prueba: "TROFEO FUNDACIÓN CAJA RURAL", csv: "CSV/2019/CSIO 2019 - TROFEO CAJA RURAL.csv", ruta: "2019/4.html" },
+        { ano: 2019, dia: 5, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2019/CSIO 2019 - TROFEO CENTRAL LECHERA.csv", ruta: "2019/5.html" },
+        { ano: 2019, dia: 5, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2019/CSIO 2019 - GRAN PREMIO DE GIJON.csv", ruta: "2019/5.html" },
+
+        // --- 2022 ---
+        { ano: 2022, dia: 1, prueba: "TROFEO EMA", csv: "CSV/2022/CSI 2022 - TROFEO EMA.csv", ruta: "2022/1.html" },
+        { ano: 2022, dia: 2, prueba: "TROFEO BANCO SABADELL", csv: "CSV/2022/CSI 2022 - TROFEO BANCO SABADELL.csv", ruta: "2022/2.html" },
+        { ano: 2022, dia: 2, prueba: "TROFEO ESFER", csv: "CSV/2022/CSI 2022 - TROFEO ESFER.csv", ruta: "2022/2.html" },
+        { ano: 2022, dia: 3, prueba: "TROFEO EMULSA", csv: "CSV/2022/CSI 2022 - TROFEO EMULSA.csv", ruta: "2022/3.html" },
+        { ano: 2022, dia: 3, prueba: "TROFEO DICAR", csv: "CSV/2022/CSI 2022 - TROFEO DICAR.csv", ruta: "2022/3.html" },
+        { ano: 2022, dia: 3, prueba: "TROFEO SUZUKI", csv: "CSV/2022/CSI 2022 - TROFEO SUZUKI.csv", ruta: "2022/3.html" },
+        { ano: 2022, dia: 4, prueba: "TROFEO GESINNE", csv: "CSV/2022/CSI 2022 - TROFEO GESINNE.csv", ruta: "2022/4.html" },
+        { ano: 2022, dia: 4, prueba: "TROFEO VISAMA", csv: "CSV/2022/CSI 2022 - TROFEO VISAMA.csv", ruta: "2022/4.html" },
+        { ano: 2022, dia: 4, prueba: "TROFEO FUNDACIÓN CAJA RURAL", csv: "CSV/2022/CSI 2022 - TROFEO CAJA RURAL.csv", ruta: "2022/4.html" },
+        { ano: 2022, dia: 5, prueba: "TROFEO COCACOLA", csv: "CSV/2022/CSI 2022 - TROFEO COCACOLA.csv", ruta: "2022/5.html" },
+        { ano: 2022, dia: 5, prueba: "TROFEO OQUENDO", csv: "CSV/2022/CSI 2022 - OQUENDO.csv", ruta: "2022/5.html" },
+        { ano: 2022, dia: 5, prueba: "TROFEO LACERA", csv: "CSV/2022/CSI 2022 - TROFEO LACERA.csv", ruta: "2022/5.html" },
+        { ano: 2022, dia: 6, prueba: "TROFEO MAHOU", csv: "CSV/2022/CSI 2022 - TROFEO MAHOU.csv", ruta: "2022/6.html" },
+        { ano: 2022, dia: 6, prueba: "TROFEO FUNERARIA GIJONESA", csv: "CSV/2022/CSI 2022 - TROFEO FUNERARIA GIJONESA.csv", ruta: "2022/6.html" },
+        { ano: 2022, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2022/CSI 2022 - GRAN PREMIO DE GIJON.csv", ruta: "2022/6.html" },
+
+        // --- 2023 ---
+        { ano: 2023, dia: 1, prueba: "TROFEO EMA", csv: "CSV/2023/CSI 2023 - TROFEO EMA.csv", ruta: "2023/1.html" },
+        { ano: 2023, dia: 1, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2023/CSI 2023 - TROFEO CENTRAL LECHERA.csv", ruta: "2023/1.html" },
+        { ano: 2023, dia: 2, prueba: "TROFEO DICAR", csv: "CSV/2023/CSI 2023 - TROFEO DICAR.csv", ruta: "2023/2.html" },
+        { ano: 2023, dia: 2, prueba: "TROFEO ESFER", csv: "CSV/2023/CSI 2023 - TROFEO ESFER.csv", ruta: "2023/2.html" },
+        { ano: 2023, dia: 3, prueba: "TROFEO EMULSA", csv: "CSV/2023/CSI 2023 - TROFEO EMULSA.csv", ruta: "2023/3.html" },
+        { ano: 2023, dia: 3, prueba: "TROFEO VISAMA", csv: "CSV/2023/CSI 2023 - TROFEO VISAMA.csv", ruta: "2023/3.html" },
+        { ano: 2023, dia: 3, prueba: "TROFEO MAHOU", csv: "CSV/2023/CSI 2023 - TROFEO MAHOU.csv", ruta: "2023/3.html" },
+        { ano: 2023, dia: 4, prueba: "TROFEO COCACOLA", csv: "CSV/2023/CSI 2023 - TROFEO COCACOLA.csv", ruta: "2023/4.html" },
+        { ano: 2023, dia: 4, prueba: "TROFEO OQUENDO", csv: "CSV/2023/CSI 2023 - TROFEO OQUENDO.csv", ruta: "2023/4.html" },
+        { ano: 2023, dia: 4, prueba: "TROFEO FUNDACIÓN CAJA RURAL", csv: "CSV/2023/CSI 2023 - TROFEO CAJA RURAL.csv", ruta: "2023/4.html" },
+        { ano: 2023, dia: 5, prueba: "TROFEO COCACOLA", csv: "CSV/2023/CSI 2023 - TROFEO COCACOLA II.csv", ruta: "2023/5.html" },
+        { ano: 2023, dia: 5, prueba: "TROFEO CASER GRUPO HELVETIA", csv: "CSV/2023/CSI 2023 - CASER GRUPO HELVETIA.csv", ruta: "2023/5.html" },
+        { ano: 2023, dia: 5, prueba: "TROFEO LACERA", csv: "CSV/2023/CSI 2023 - TROFEO LACERA.csv", ruta: "2023/5.html" },
+        { ano: 2023, dia: 6, prueba: "TROFEO TRIOCAR", csv: "CSV/2023/CSI 2023 - TROFEO TRIOCAR.csv", ruta: "2023/6.html" },
+        { ano: 2023, dia: 6, prueba: "TROFEO FUNERARIA GIJONESA", csv: "CSV/2023/CSI 2023 - TROFEO FUNERARIA GIJONESA.csv", ruta: "2023/6.html" },
+        { ano: 2023, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2023/CSI 2023 - GRAN PREMIO DE GIJON.csv", ruta: "2023/6.html" },
+        
+        // --- 2024 ---
+        { ano: 2024, dia: 1, prueba: "TROFEO EMA", csv: "CSV/CSI GIJÓN 2024 - TROFEO EMA.csv", ruta: "2024/1.html" },
+        { ano: 2024, dia: 1, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/CSI GIJÓN 2024 - TROFEO CENTRAL LECHERA ASTURIANA.csv", ruta: "2024/1.html" },
+        { ano: 2024, dia: 2, prueba: "TROFEO MAHOU", csv: "CSV/CSI GIJÓN 2024 - TROFEO MAHOU.csv", ruta: "2024/2.html" },
+        { ano: 2024, dia: 2, prueba: "TROFEO OQUENDO", csv: "CSV/CSI GIJÓN 2024 - TROFEO OQUENDO.csv", ruta: "2024/2.html" },
+        { ano: 2024, dia: 3, prueba: "TROFEO EMULSA", csv: "CSV/CSI GIJÓN 2024 - TROFEO EMULSA.csv", ruta: "2024/3.html" },
+        { ano: 2024, dia: 3, prueba: "TROFEO DICAR", csv: "CSV/CSI GIJÓN 2024 - TROFEO DICAR.csv", ruta: "2024/3.html" },
+        { ano: 2024, dia: 3, prueba: "TROFEO FUNERARIA GIJONESA", csv: "CSV/CSI GIJÓN 2024 - TROFEO FUNERARIA GIJONESA.csv", ruta: "2024/3.html" },
+        { ano: 2024, dia: 4, prueba: "TROFEO COCA-COLA", csv: "CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA.csv", ruta: "2024/4.html" },
+        { ano: 2024, dia: 4, prueba: "TROFEO ESFER", csv: "CSV/CSI GIJÓN 2024 - TROFEO ESFER.csv", ruta: "2024/4.html" },
+        { ano: 2024, dia: 4, prueba: "TROFEO FUNDACIÓN CAJA RURAL GIJÓN", csv: "CSV/CSI GIJÓN 2024 - TROFEO FUNDACIÓN CAJA RURAL GIJÓN.csv", ruta: "2024/4.html" },
+        { ano: 2024, dia: 5, prueba: "TROFEO COCA-COLA II", csv: "CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA II.csv", ruta: "2024/5.html" },
+        { ano: 2024, dia: 5, prueba: "TROFEO CASER GRUPO HELVETIA", csv: "CSV/CSI GIJÓN 2024 - TROFEO CASER GRUPO HELVETIA.csv", ruta: "2024/5.html" },
+        { ano: 2024, dia: 5, prueba: "TROFEO VOLVO", csv: "CSV/CSI GIJÓN 2024 - TROFEO VOLVO.csv", ruta: "2024/5.html" },
+        { ano: 2024, dia: 6, prueba: "TROFEO COCA-COLA III", csv: "CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA III.csv", ruta: "2024/6.html" },
+        { ano: 2024, dia: 6, prueba: "TROFEO LACERA", csv: "CSV/CSI GIJÓN 2024 - TROFEO LACERA.csv", ruta: "2024/6.html" },
+        { ano: 2024, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/CSI GIJÓN 2024 - GRAN PREMIO DE GIJÓN.csv", ruta: "2024/6.html" },
+
+        // --- 2025 ---
+        { ano: 2025, dia: 1, prueba: "TROFEO VALORIZA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO VALORIZA.csv", ruta: "2025/1.html" },
+        { ano: 2025, dia: 1, prueba: "TROFEO CENTRAL LECHERA ASTURIANA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO CENTRAL LECHERA ASTURIANA.csv", ruta: "2025/1.html" },
+        { ano: 2025, dia: 2, prueba: "TROFEO MAHOU", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO MAHOU.csv", ruta: "2025/2.html" },
+        { ano: 2025, dia: 2, prueba: "TROFEO OQUENDO", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO OQUENDO.csv", ruta: "2025/2.html" },
+        { ano: 2025, dia: 3, prueba: "TROFEO EMULSA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO EMULSA.csv", ruta: "2025/3.html" },
+        { ano: 2025, dia: 3, prueba: "TROFEO DICAR", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO DICAR.csv", ruta: "2025/3.html" },
+        { ano: 2025, dia: 3, prueba: "TROFEO FUNERARIA GIJONESA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO FUNERARIA GIJONESA.csv", ruta: "2025/3.html" },
+        { ano: 2025, dia: 4, prueba: "TROFEO COCA-COLA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO COCA-COLA.csv", ruta: "2025/4.html" },
+        { ano: 2025, dia: 4, prueba: "TROFEO ESFER", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO ESFER.csv", ruta: "2025/4.html" },
+        { ano: 2025, dia: 4, prueba: "TROFEO FUNDACIÓN CAJA RURAL GIJÓN", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO FUNDACIÓN CAJA RURAL GIJÓN.csv", ruta: "2025/4.html" },
+        { ano: 2025, dia: 5, prueba: "TROFEO COCA-COLA II", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO COCA-COLA II.csv", ruta: "2025/5.html" },
+        { ano: 2025, dia: 5, prueba: "TROFEO CASER GRUPO HELVETIA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO CASER GRUPO HELVETIA.csv", ruta: "2025/5.html" },
+        { ano: 2025, dia: 5, prueba: "TROFEO VOLVO", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO VOLVO.csv", ruta: "2025/5.html" },
+        { ano: 2025, dia: 6, prueba: "TROFEO COCA-COLA III", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO COCA-COLA III.csv", ruta: "2025/6.html" },
+        { ano: 2025, dia: 6, prueba: "TROFEO LACERA", csv: "CSV/2025/CSI GIJÓN 2025 - TROFEO LACERA.csv", ruta: "2025/6.html" },
+        { ano: 2025, dia: 6, prueba: "GRAN PREMIO DE GIJÓN", csv: "CSV/2025/CSI GIJÓN 2025 - GRAN PREMIO DE GIJÓN.csv", ruta: "2025/6.html" }
+    ];
+
+    // 2. Procesar y guardar con los nombres exactos que lee tu función
+    for (let item of archivosCSV) {
+        await new Promise((resolve) => {
+            Papa.parse(item.csv, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    if (results.data) {
+                        results.data.forEach(fila => {
+                            baseDatosGlobal.push({
+                                ano: item.ano,          // <-- Coincide con ${r.ano}
+                                dia: item.dia,          // <-- Coincide con ${r.dia}
+                                prueba: item.prueba,    // <-- Coincide con ${r.prueba}
+                                ruta: item.ruta,        // <-- Coincide con ${r.ruta}
+                                jinete: fila.Atleta || fila.Jinete || fila.amazona || fila['Jinete/Amazona'] || '',
+                                caballo: fila.Caballo || '',
+                                pos: fila.Posición || fila.Posicion || fila.Pos || '-'
+                            });
+                        });
+                    }
+                    resolve();
+                },
+                error: function() { resolve(); }
+            });
+        });
+    }
+
+    csvsCargados = true;
+}
+
+        function obtenerValorCampo(objeto, nombresPosibles) {
+            if (!objeto) return '-';
+            const norm = (t) => t.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+            const nombresLimpios = nombresPosibles.map(n => norm(n));
+            const key = Object.keys(objeto).find(k => nombresLimpios.includes(norm(k)));
+            return (key && objeto[key] !== "") ? objeto[key] : '-';
+        }
+
+        function limpiarBusqueda() {
+            const input = document.getElementById('search-input');
+            const panelResultados = document.getElementById('global-results-panel');
+            const posts = document.querySelectorAll('.year-post, .no-edition-post');
+
+            input.value = '';
+            panelResultados.style.display = 'none';
+
+            posts.forEach(post => {
+                post.style.display = 'block';
+            });
+        }
+
+        async function ejecutarBusquedaGlobal(event) {
+            if (event && event.key === 'Escape') {
+                limpiarBusqueda();
+                return;
+            }
+
+            const input = document.getElementById('search-input');
+            const texto = input.value.toLowerCase().trim();
+            const panelResultados = document.getElementById('global-results-panel');
+            const contenedorResultados = document.getElementById('results-content');
+            const posts = document.querySelectorAll('.year-post, .no-edition-post');
+
+            if (texto.length < 2) {
+                panelResultados.style.display = 'none';
+                posts.forEach(post => post.style.display = 'block');
+                return;
+            }
+
+            await indexarCSVHistoricos();
+
+            // 1. Filtrar coincidencias
+            const coincidenciasRaw = baseDatosGlobal.filter(d => 
+                (d.jinete && d.jinete.toLowerCase().includes(texto)) ||
+                (d.caballo && d.caballo.toLowerCase().includes(texto)) ||
+                (d.prueba && d.prueba.toLowerCase().includes(texto))
+            );
+
+            // 2. Eliminar duplicados de forma estricta
+            const vistos = new Set();
+            const coincidenciasCSV = coincidenciasRaw.filter(item => {
+                const claveUnica = `${item.ano}-${item.prueba}-${item.jinete}-${item.caballo}-${item.pos}-${item.ruta}`.toLowerCase();
+                if (vistos.has(claveUnica)) return false;
+                vistos.add(claveUnica);
+                return true;
+            });
+
+            // 3. Gestionar paginación y renderizado
+            coincidenciasGlobales = coincidenciasCSV;
+            paginaActual = 1; // Reiniciamos a la primera página en cada nueva búsqueda
+
+            if (coincidenciasGlobales.length > 0) {
+                panelResultados.style.display = 'block';
+                renderizarPaginaResultados(); // Renderiza los primeros 30 + botón si hay más
+            } else {
+                panelResultados.style.display = 'block';
+                contenedorResultados.innerHTML = `<p style="color:#666;">No se encontraron resultados para "<strong>${texto}</strong>".</p>`;
+            }
+
+            // 4. Ocultar/mostrar posts del index según la búsqueda
+            posts.forEach(post => {
+                const textoPost = post.innerText.toLowerCase();
+                post.style.display = textoPost.includes(texto) ? 'block' : 'none';
+            });
+        }
+
+        // --- DIBUJAR LA TABLA Y EL BOTÓN DE CARGAR MÁS ---
+        function renderizarPaginaResultados() {
+            const contenedorResultados = document.getElementById('results-content');
+            
+            const limite = paginaActual * RESULTADOS_POR_PAGINA;
+            const resultadosAMostrar = coincidenciasGlobales.slice(0, limite);
+
+            let htmlTabla = `
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Jinete / Amazona</th>
+                            <th>Caballo</th>
+                            <th>Prueba</th>
+                            <th>Pos.</th>
+                            <th>Acceso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            resultadosAMostrar.forEach(r => {
+                htmlTabla += `
+                    <tr>
+                        <td><strong>${r.ano}</strong></td>
+                        <td>${r.jinete}</td>
+                        <td><em>${r.caballo}</em></td>
+                        <td>${r.prueba}</td>
+                        <td>${r.pos}º</td>
+                        <td><a href="${r.ruta}" class="link-jornada">Ver Día ${r.dia} ➔</a></td>
+                    </tr>
+                `;
+            });
+
+            htmlTabla += `</tbody></table>`;
+
+            // Si quedan más resultados por mostrar, añadimos el botón "Cargar más"
+            if (limite < coincidenciasGlobales.length) {
+                const restantes = coincidenciasGlobales.length - limite;
+                const siguientes = restantes > RESULTADOS_POR_PAGINA ? RESULTADOS_POR_PAGINA : restantes;
+                
+                htmlTabla += `
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button onclick="cargarMasResultados()" class="btn-cargar-mas" style="padding: 10px 20px; cursor: pointer; background-color: #1b5e20; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 0.9rem;">
+                            Cargar ${siguientes} resultados más (${restantes} restantes)
+                        </button>
+                    </div>
+                `;
+            }
+
+            contenedorResultados.innerHTML = htmlTabla;
+        }
+
+        // --- ACCIÓN DEL BOTÓN CARGAR MÁS ---
+        function cargarMasResultados() {
+            paginaActual++;
+            renderizarPaginaResultados();
+        }
+    </script>
 </body>
 </html>

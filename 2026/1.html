@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI 5* Gijón 2026 - Día 1</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <style>
+        .jornada-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .header-jornada {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid var(--border-card, rgba(56, 189, 248, 0.3));
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow, 0 4px 20px rgba(0,0,0,0.2));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--text-primary, #ffffff);
+        }
+
+        .header-title p {
+            margin: 5px 0 0 0;
+            color: var(--text-accent, #38bdf8);
+            font-weight: 600;
+        }
+
+        .selector-prueba {
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--bg-body, #0f172a);
+            color: var(--text-primary, #ffffff);
+            border: 1px solid var(--border-card, rgba(56, 189, 248, 0.3));
+            font-size: 0.95rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Tabla estilizada */
+        .tabla-container {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid var(--border-card, rgba(255, 255, 255, 0.1));
+            border-radius: 16px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            box-shadow: var(--shadow, 0 4px 20px rgba(0,0,0,0.2));
+        }
+
+        .tabla-orden-salida {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .tabla-orden-salida th {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--text-accent, #38bdf8);
+            padding: 14px 12px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-card, rgba(56, 189, 248, 0.3));
+        }
+
+        .tabla-orden-salida td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-card, rgba(255, 255, 255, 0.05));
+            color: var(--text-primary, #f1f5f9);
+            font-size: 0.92rem;
+        }
+
+        .tabla-orden-salida tr:hover td {
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .badge-orden {
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .badge-nac {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .badge-participaciones {
+            background: #0284c7;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        /* Buscador local dentro de la tabla */
+        .filtro-rapido {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-card, rgba(56, 189, 248, 0.3));
+            background: var(--bg-body, #0f172a);
+            color: var(--text-primary, #ffffff);
+            margin-bottom: 1rem;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="jornada-container">
+
+        <div style="margin-bottom: 1rem;">
+            <a href="actual.html" style="color: var(--text-accent, #38bdf8); text-decoration: none; font-weight: 700; font-size: 0.9rem;">
+                ➔ Volver al Menú 2026
+            </a>
+        </div>
+
+        <header class="header-jornada">
+            <div class="header-title">
+                <h1>📅 Día 1 - CSIO Gijón 2026</h1>
+                <p id="nombre-prueba-actual">Trofeo Valoriza</p>
+            </div>
+
+            <div>
+                <label for="selectorPrueba" style="display:block; font-size:0.8rem; color:var(--text-secondary,#94a3b8); margin-bottom:4px;">Cambiar Prueba:</label>
+                <select id="selectorPrueba" class="selector-prueba" onchange="cargarPruebaSeleccionada()">
+                    <option value="../CSV/2026/CSI GIJÓN 2026 - TROFEO VALORIZA.csv">Trofeo Valoriza (1.40 m)</option>
+                    <option value="../CSV/2026/CSI GIJÓN 2026 - TROFEO CENTRAL LECHERA ASTURIANA.csv">Trofeo Central Lechera Asturiana (1.50 m)</option>
+                </select>
+            </div>
+        </header>
+
+        <main class="tabla-container">
+            <input type="text" id="filtroTabla" class="filtro-rapido" placeholder="Filtrar por jinete, caballo o país en esta prueba..." oninput="filtrarTablaLocal()">
+
+            <table class="tabla-orden-salida">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Orden</th>
+                        <th>Jinete / Amazona</th>
+                        <th style="width: 110px;">Nacionalidad</th>
+                        <th>Caballo</th>
+                        <th style="width: 160px; text-align: center;">Participaciones</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    </tbody>
+            </table>
+        </main>
+
+    </div>
+
+    <script>
+        let datosOriginalesPrueba = [];
+
+        // Función para cargar el CSV activo
+        function cargarPruebaSeleccionada() {
+            const select = document.getElementById('selectorPrueba');
+            const rutaCSV = select.value;
+            const textoPrueba = select.options[select.selectedIndex].text;
+            document.getElementById('nombre-prueba-actual').textContent = textoPrueba;
+
+            Papa.parse(rutaCSV, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    if (results.data) {
+                        datosOriginalesPrueba = results.data;
+                        renderizarTabla(datosOriginalesPrueba);
+                    }
+                },
+                error: function(err) {
+                    console.error("Error al cargar el CSV:", err);
+                    document.getElementById('cuerpoTabla').innerHTML = `<tr><td colspan="6" style="text-align:center; color:#ef4444;">No se pudo cargar el archivo de datos.</td></tr>`;
+                }
+            });
+        }
+
+        // Renderiza las filas en el HTML
+        function renderizarTabla(datos) {
+            const cuerpo = document.getElementById('cuerpoTabla');
+            cuerpo.innerHTML = '';
+
+            if (datos.length === 0) {
+                cuerpo.innerHTML = `<tr><td colspan="6" style="text-align:center;">No hay registros para mostrar.</td></tr>`;
+                return;
+            }
+
+            datos.forEach((fila, index) => {
+                // Mapeo flexible de nombres de columnas del CSV
+                const orden = fila['Orden'] || fila['Orden de salida'] || fila['Posición'] || (index + 1);
+                const jinete = fila['Jinete'] || fila['Atleta'] || fila['Jinete/Amazona'] || '-';
+                const nacionalidad = fila['Nacionalidad'] || fila['Pais'] || fila['PAIS'] || 'ESP';
+                const caballo = fila['Caballo'] || '-';
+                const participaciones = fila['Participaciones Previas'] || fila['Participaciones'] || '0';
+                const notas = fila['Notas'] || fila['Observaciones'] || 'Sin novedades';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><span class="badge-orden">#${orden}</span></td>
+                    <td><strong>${jinete}</strong></td>
+                    <td><span class="badge-nac">${nacionalidad}</span></td>
+                    <td><em>${caballo}</em></td>
+                    <td style="text-align: center;"><span class="badge-participaciones">${participaciones}</span></td>
+                    <td style="color: var(--text-secondary, #94a3b8); font-size: 0.85rem;">${notas}</td>
+                `;
+                cuerpo.appendChild(tr);
+            });
+        }
+
+        // Filtro de búsqueda rápida
+        function filtrarTablaLocal() {
+            const query = document.getElementById('filtroTabla').value.toLowerCase();
+            const filtrados = datosOriginalesPrueba.filter(fila => {
+                const jinete = (fila['Jinete'] || fila['Atleta'] || '').toLowerCase();
+                const caballo = (fila['Caballo'] || '').toLowerCase();
+                const nac = (fila['Nacionalidad'] || fila['Pais'] || '').toLowerCase();
+                return jinete.includes(query) || caballo.includes(query) || nac.includes(query);
+            });
+            renderizarTabla(filtrados);
+        }
+    </script>
+</body>
+</html>
