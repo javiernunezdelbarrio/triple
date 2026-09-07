@@ -23,37 +23,37 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-mahou-2016", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO MAHOU.csv", resultados: [] },
-            { id: "trofeo-princesa-2016", nombre: "TROFEO SAR PRINCESA DE ASTURIAS", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO SAR PRINCESA DE ASTURIAS.csv", resultados: [] }
+            { id: "trofeo-mahou-2016", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO MAHOU.csv", resultados: [] },
+            { id: "trofeo-princesa-2016", nombre: "TROFEO SAR PRINCESA DE ASTURIAS", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO SAR PRINCESA DE ASTURIAS.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-dicar-ii-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR II.csv", resultados: [] },
-            { id: "trofeo-casino-2016", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO CASINO DE ASTURIAS.csv", resultados: [] },
-            { id: "trofeo-cla-2016", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
+            { id: "trofeo-dicar-ii-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR II.csv", resultados: [] },
+            { id: "trofeo-casino-2016", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO CASINO DE ASTURIAS.csv", resultados: [] },
+            { id: "trofeo-cla-2016", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "copa-naciones-2016", nombre: "COPA DE NACIONES FURUSIYYA", altura: "1.60 m", baremo: "Dos Rondas y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - COPA DE NACIONES.csv", resultados: [] },
-            { id: "trofeo-oquendo-2016", nombre: "TROFEO OQUENDO", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "copa-naciones-2016", nombre: "COPA DE NACIONES FURUSIYYA", altura: "1.60 m", baremo: "Dos Rondas y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - COPA DE NACIONES.csv", resultados: [] },
+            { id: "trofeo-oquendo-2016", nombre: "TROFEO OQUENDO", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-dicar-iii-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR III.csv", resultados: [] },
-            { id: "trofeo-veolia-2016", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO VEOLIA.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2016", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
+            { id: "trofeo-dicar-iii-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR III.csv", resultados: [] },
+            { id: "trofeo-veolia-2016", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO VEOLIA.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2016", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-gaitero-2016", nombre: "TROFEO GAITERO", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO GAITERO.csv", resultados: [] },
-            { id: "gran-premio-gijon-2016", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-gaitero-2016", nombre: "TROFEO GAITERO", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO GAITERO.csv", resultados: [] },
+            { id: "gran-premio-gijon-2016", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-dicar-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR 1.csv", resultados: [] },
-            { id: "trofeo-cocacola-2016", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO COCACOLA.csv", resultados: [] },
-            { id: "trofeo-funeraria-2016", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Manga ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
+            { id: "trofeo-dicar-2016", nombre: "TROFEO DICAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO DICAR 1.csv", resultados: [] },
+            { id: "trofeo-cocacola-2016", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO COCACOLA.csv", resultados: [] },
+            { id: "trofeo-funeraria-2016", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Manga ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2016/CSIO GIJÓN 2016 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2017) {
@@ -62,37 +62,37 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-2017", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO COCA-COLA.csv", resultados: [] },
-            { id: "trofeo-oquendo-2017", nombre: "TROFEO OQUENDO", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "trofeo-cocacola-2017", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO COCA-COLA.csv", resultados: [] },
+            { id: "trofeo-oquendo-2017", nombre: "TROFEO OQUENDO", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-boxbar-ii-2017", nombre: "TROFEO BOXBAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO BOXBAR II.csv", resultados: [] },
-            { id: "trofeo-tryp-2017", nombre: "TROFEO TRYP REY PELAYO", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO TRYP REY PELAYO.csv", resultados: [] },
-            { id: "trofeo-mahou-2017", nombre: "TROFEO MAHOU", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO MAHOU.csv", resultados: [] }
+            { id: "trofeo-boxbar-ii-2017", nombre: "TROFEO BOXBAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO BOXBAR II.csv", resultados: [] },
+            { id: "trofeo-tryp-2017", nombre: "TROFEO TRYP REY PELAYO", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO TRYP REY PELAYO.csv", resultados: [] },
+            { id: "trofeo-mahou-2017", nombre: "TROFEO MAHOU", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO MAHOU.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "copa-naciones-2017", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - COPA DE NACIONES.csv", resultados: [] },
-            { id: "trofeo-asturiana-2017", nombre: "TROFEO ASTURIANA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO ASTURIANA.csv", resultados: [] }
+            { id: "copa-naciones-2017", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - COPA DE NACIONES.csv", resultados: [] },
+            { id: "trofeo-asturiana-2017", nombre: "TROFEO ASTURIANA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO ASTURIANA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-boxbar-iii-2017", nombre: "TROFEO BOXBAR", altura: "1.35/1.40 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO BOXBAR III.csv", resultados: [] },
-            { id: "trofeo-gaitero-2017", nombre: "TROFEO EL GAITERO", altura: "1.40 m", baremo: "Acumulador con Joker", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO VEOLIA.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2017", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
+            { id: "trofeo-boxbar-iii-2017", nombre: "TROFEO BOXBAR", altura: "1.35/1.40 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO BOXBAR III.csv", resultados: [] },
+            { id: "trofeo-gaitero-2017", nombre: "TROFEO EL GAITERO", altura: "1.40 m", baremo: "Acumulador con Joker", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO VEOLIA.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2017", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-veolia-2017", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO VEOLIA.csv", resultados: [] },
-            { id: "gran-premio-gijon-2017", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "A con cronómetro y manga ganadora", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2017/CSIO 2017 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-veolia-2017", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO VEOLIA.csv", resultados: [] },
+            { id: "gran-premio-gijon-2017", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "A con cronómetro y manga ganadora", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2017/CSIO 2017 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-boxbar-2017", nombre: "TROFEO BOXBAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO BOXBAR.csv", resultados: [] },
-            { id: "trofeo-casino-2017", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO COCA-COLA.csv", resultados: [] },
-            { id: "trofeo-lacera-2017", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO LACERA.csv", resultados: [] }
+            { id: "trofeo-boxbar-2017", nombre: "TROFEO BOXBAR", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO BOXBAR.csv", resultados: [] },
+            { id: "trofeo-casino-2017", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO COCA-COLA.csv", resultados: [] },
+            { id: "trofeo-lacera-2017", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2017/CSIO 2017 - TROFEO LACERA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2018) {
@@ -101,32 +101,32 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-cla-ii-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA II.csv", resultados: [] },
-            { id: "trofeo-veolia-2018", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO VEOLIA.csv", resultados: [] },
-            { id: "trofeo-oquendo-2018", nombre: "TROFEO OQUENDO", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "trofeo-cla-ii-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA II.csv", resultados: [] },
+            { id: "trofeo-veolia-2018", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO VEOLIA.csv", resultados: [] },
+            { id: "trofeo-oquendo-2018", nombre: "TROFEO OQUENDO", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "copa-naciones-2018", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - COPA DE NACIONES.csv", resultados: [] },
-            { id: "trofeo-mahou-2018", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO MAHOU.csv", resultados: [] }
+            { id: "copa-naciones-2018", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - COPA DE NACIONES.csv", resultados: [] },
+            { id: "trofeo-mahou-2018", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO MAHOU.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofeo-cla-iii-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA III.csv", resultados: [] },
-            { id: "trofeo-casino-2018", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO CASINO DE ASTURIAS.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2018", nombre: "TROFEO CAJA RURAL", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: true, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
+            { id: "trofeo-cla-iii-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA III.csv", resultados: [] },
+            { id: "trofeo-casino-2018", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO CASINO DE ASTURIAS.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2018", nombre: "TROFEO CAJA RURAL", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: true, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO CAJA RURAL GIJON.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-gaitero-2018", nombre: "TROFEO EL GAITERO", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO GAITERO.csv", resultados: [] },
-            { id: "gran-premio-2018", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-gaitero-2018", nombre: "TROFEO EL GAITERO", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO GAITERO.csv", resultados: [] },
+            { id: "gran-premio-2018", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-cla-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA.csv", resultados: [] },
-            { id: "trofeo-cocacola-2018", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO COCA-COLA.csv", resultados: [] },
-            { id: "trofeo-lacera-2018", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO LACERA.csv", resultados: [] }
+            { id: "trofeo-cla-2018", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO CENTRAL LECHERA.csv", resultados: [] },
+            { id: "trofeo-cocacola-2018", nombre: "TROFEO COCACOLA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO COCA-COLA.csv", resultados: [] },
+            { id: "trofeo-lacera-2018", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2018/CSIO 2018 - TROFEO LACERA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2019) {
@@ -135,32 +135,32 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-ii-2019", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO COCACOLA II.csv", resultados: [] },
-            { id: "trofeo-veolia-2019", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO VEOLIA.csv", resultados: [] },
-            { id: "trofeo-oquendo-2019", nombre: "TROFEO OQUENDO", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "trofeo-cocacola-ii-2019", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO COCACOLA II.csv", resultados: [] },
+            { id: "trofeo-veolia-2019", nombre: "TROFEO VEOLIA", altura: "1.40 m", baremo: "Dos Fases", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO VEOLIA.csv", resultados: [] },
+            { id: "trofeo-oquendo-2019", nombre: "TROFEO OQUENDO", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "copa-naciones-2019", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - COPA NACIONES.csv", resultados: [] },
-            { id: "trofeo-mahou-2019", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO MAHOU.csv", resultados: [] }
+            { id: "copa-naciones-2019", nombre: "COPA DE NACIONES SABADELL", altura: "1.60 m", baremo: "Dos Rondas", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - COPA NACIONES.csv", resultados: [] },
+            { id: "trofeo-mahou-2019", nombre: "TROFEO MAHOU", altura: "1.40 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO MAHOU.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-iii-2019", nombre: "TROFEO COCACOLA", altura: "1.30 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO COCACOLA III.csv", resultados: [] },
-            { id: "trofeo-casino-2019", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO CASINO.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2019", nombre: "TROFEO CAJA RURAL", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: true, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO CAJA RURAL.csv", resultados: [] }
+            { id: "trofeo-cocacola-iii-2019", nombre: "TROFEO COCACOLA", altura: "1.30 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO COCACOLA III.csv", resultados: [] },
+            { id: "trofeo-casino-2019", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.40 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO CASINO.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2019", nombre: "TROFEO CAJA RURAL", altura: "1.60 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: true, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO CAJA RURAL.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-cla-2019", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO CENTRAL LECHERA.csv", resultados: [] },
-            { id: "gran-premio-2019", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-cla-2019", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO CENTRAL LECHERA.csv", resultados: [] },
+            { id: "gran-premio-2019", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-cocacola-2019", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO COCACOLA.csv", resultados: [] },
-            { id: "trofeo-lacera-2019", nombre: "TROFEO LACERA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO LACERA.csv", resultados: [] },
-            { id: "trofeo-ema-2019", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO EMA.csv", resultados: [] }
+            { id: "trofeo-cocacola-2019", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO COCACOLA.csv", resultados: [] },
+            { id: "trofeo-lacera-2019", nombre: "TROFEO LACERA", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO LACERA.csv", resultados: [] },
+            { id: "trofeo-ema-2019", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//CSV/2019/CSIO 2019 - TROFEO EMA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2022) {
@@ -169,37 +169,37 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-banco-sabadell-2022", nombre: "TROFEO BANCO SABADELL", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO BANCO SABADELL.csv", resultados: [] },
-            { id: "trofeo-esfer-2022", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO ESFER.csv", resultados: [] }
+            { id: "trofeo-banco-sabadell-2022", nombre: "TROFEO BANCO SABADELL", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO BANCO SABADELL.csv", resultados: [] },
+            { id: "trofeo-esfer-2022", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO ESFER.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-emulsa-2022", nombre: "TROFEO EMULSA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO EMULSA.csv", resultados: [] },
-            { id: "trofeo-dicar-2022", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO DICAR.csv", resultados: [] },
-            { id: "trofeo-suzuki-2022", nombre: "TROFEO SUZUKI", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO SUZUKI.csv", resultados: [] }
+            { id: "trofeo-emulsa-2022", nombre: "TROFEO EMULSA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO EMULSA.csv", resultados: [] },
+            { id: "trofeo-dicar-2022", nombre: "TROFEO CASINO DE ASTURIAS", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO DICAR.csv", resultados: [] },
+            { id: "trofeo-suzuki-2022", nombre: "TROFEO SUZUKI", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO SUZUKI.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofe-gesinne-2022", nombre: "TROFEO GESINNE", altura: "1.30 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO GESINNE.csv", resultados: [] },
-            { id: "trofeo-visama-2022", nombre: "TROFEO VISAMA", altura: "1.45 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO VISAMA.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2022", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.55 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO CAJA RURAL.csv", resultados: [] }
+            { id: "trofe-gesinne-2022", nombre: "TROFEO GESINNE", altura: "1.30 m", baremo: "Acumulador", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO GESINNE.csv", resultados: [] },
+            { id: "trofeo-visama-2022", nombre: "TROFEO VISAMA", altura: "1.45 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO VISAMA.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2022", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.55 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO CAJA RURAL.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-2022", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO COCACOLA.csv", resultados: [] },
-            { id: "trofeo-oquendo-2022", nombre: "TROFEO OQUENDO", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO OQUENDO.csv", resultados: [] },
-            { id: "trofeo-lacera-2022", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO LACERA.csv", resultados: [] }
+            { id: "trofeo-cocacola-2022", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO COCACOLA.csv", resultados: [] },
+            { id: "trofeo-oquendo-2022", nombre: "TROFEO OQUENDO", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO OQUENDO.csv", resultados: [] },
+            { id: "trofeo-lacera-2022", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO LACERA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-mahou-2022", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO MAHOU.csv", resultados: [] },
-            { id: "trofeo-funeraria-2022", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.45 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] },
-            { id: "gran-premio-gijon-2022", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "A con cronómetro y manga ganadora", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2022/CSI 2022 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-mahou-2022", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO MAHOU.csv", resultados: [] },
+            { id: "trofeo-funeraria-2022", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.45 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] },
+            { id: "gran-premio-gijon-2022", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "A con cronómetro y manga ganadora", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2022/CSI 2022 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-ema-2022", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO EMA.csv", resultados: [] }
+            { id: "trofeo-ema-2022", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2022/CSI 2022 - TROFEO EMA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2023) {
@@ -208,38 +208,38 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-dicar-2023", nombre: "TROFEO DICAR", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO DICAR.csv", resultados: [] },
-            { id: "trofeo-esfer-2023", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO ESFER.csv", resultados: [] }
+            { id: "trofeo-dicar-2023", nombre: "TROFEO DICAR", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO DICAR.csv", resultados: [] },
+            { id: "trofeo-esfer-2023", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO ESFER.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-emulsa-2023", nombre: "TROFEO EMULSA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO EMULSA.csv", resultados: [] },
-            { id: "trofeo-visama-2023", nombre: "TROFEO VISAMA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO VISAMA.csv", resultados: [] },
-            { id: "trofeo-mahou-2023", nombre: "TROFEO MAHOU", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO MAHOU.csv", resultados: [] }
+            { id: "trofeo-emulsa-2023", nombre: "TROFEO EMULSA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO EMULSA.csv", resultados: [] },
+            { id: "trofeo-visama-2023", nombre: "TROFEO VISAMA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO VISAMA.csv", resultados: [] },
+            { id: "trofeo-mahou-2023", nombre: "TROFEO MAHOU", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO MAHOU.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofe-cocacola-2023", nombre: "TROFEO COCACOLA", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO COCACOLA.csv", resultados: [] },
-            { id: "trofeo-oquendo-2023", nombre: "TROFEO OQUENDO", altura: "1.30 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO OQUENDO.csv", resultados: [] },
-            { id: "trofeo-caja-rural-2023", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.55 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO CAJA RURAL.csv", resultados: [] }
+            { id: "trofe-cocacola-2023", nombre: "TROFEO COCACOLA", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO COCACOLA.csv", resultados: [] },
+            { id: "trofeo-oquendo-2023", nombre: "TROFEO OQUENDO", altura: "1.30 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO OQUENDO.csv", resultados: [] },
+            { id: "trofeo-caja-rural-2023", nombre: "TROFEO CAJA RURAL GIJÓN", altura: "1.55 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO CAJA RURAL.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-ii-2023", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO COCACOLA II.csv", resultados: [] },
-            { id: "trofeo-caser-2023", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
-            { id: "trofeo-lacera-2023", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO LACERA.csv", resultados: [] }
+            { id: "trofeo-cocacola-ii-2023", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO COCACOLA II.csv", resultados: [] },
+            { id: "trofeo-caser-2023", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
+            { id: "trofeo-lacera-2023", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO LACERA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-triocar-2023", nombre: "TROFEO TRIOCAR", altura: "1.30/1.35 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO TRIOCAR.csv", resultados: [] },
-            { id: "trofeo-funeraria-2023", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] },
-            { id: "gran-premio-gijon-2023", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2023/CSI 2023 - GRAN PREMIO DE GIJON.csv", resultados: [] }
+            { id: "trofeo-triocar-2023", nombre: "TROFEO TRIOCAR", altura: "1.30/1.35 m", baremo: "A con cronómetro y desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO TRIOCAR.csv", resultados: [] },
+            { id: "trofeo-funeraria-2023", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] },
+            { id: "gran-premio-gijon-2023", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2023/CSI 2023 - GRAN PREMIO DE GIJON.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-ema-2023", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO EMA.csv", resultados: [] },
-            { id: "trofeo-cla-2023", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
+            { id: "trofeo-ema-2023", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO EMA.csv", resultados: [] },
+            { id: "trofeo-cla-2023", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2023/CSI 2023 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2025) {
@@ -248,38 +248,38 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-siroko-2025", nombre: "TROFEO SIROKO", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO SIROKO.csv", resultados: [] },
-            { id: "trofeo-oquendo-2025", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "trofeo-siroko-2025", nombre: "TROFEO SIROKO", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO SIROKO.csv", resultados: [] },
+            { id: "trofeo-oquendo-2025", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-artiem-2025", nombre: "TROFEO ARTIEM", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO ARTIEM.csv", resultados: [] },
-            { id: "trofeo-dicar-2025", nombre: "TROFEO DICAR", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO DICAR.csv", resultados: [] },
-            { id: "trofeo-funeraria-2025", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
+            { id: "trofeo-artiem-2025", nombre: "TROFEO ARTIEM", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO ARTIEM.csv", resultados: [] },
+            { id: "trofeo-dicar-2025", nombre: "TROFEO DICAR", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO DICAR.csv", resultados: [] },
+            { id: "trofeo-funeraria-2025", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofeo-esnovaracks-2025", nombre: "TROFEO ESNOVA RACKS", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO ESNOVA RACKS.csv", resultados: [] },
-            { id: "trofeo-esfer-2025", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO ESFER.csv", resultados: [] },
-            { id: "trofeo-gijon-rural-2025", nombre: "TROFEO FUNDACIÓN GIJÓN RURAL", altura: "1.55 m", baremo: "A con cronómetro y desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO FUNDACION GIJON RURAL.csv", resultados: [] }
+            { id: "trofeo-esnovaracks-2025", nombre: "TROFEO ESNOVA RACKS", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO ESNOVA RACKS.csv", resultados: [] },
+            { id: "trofeo-esfer-2025", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO ESFER.csv", resultados: [] },
+            { id: "trofeo-gijon-rural-2025", nombre: "TROFEO FUNDACIÓN GIJÓN RURAL", altura: "1.55 m", baremo: "A con cronómetro y desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO FUNDACION GIJON RURAL.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-mahou-2025", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO MAHOU.csv", resultados: [] },
-            { id: "trofeo-caser-2025", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
-            { id: "trofeo-volvo-2025", nombre: "TROFEO VOLVO", altura: "1.50 m", baremo: "Speed C", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO VOLVO.csv", resultados: [] }
+            { id: "trofeo-mahou-2025", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO MAHOU.csv", resultados: [] },
+            { id: "trofeo-caser-2025", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
+            { id: "trofeo-volvo-2025", nombre: "TROFEO VOLVO", altura: "1.50 m", baremo: "Speed C", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO VOLVO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-2025", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO COCACOLA.csv", resultados: [] },
-            { id: "trofeo-lacera-2025", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO LACERA.csv", resultados: [] },
-            { id: "gran-premio-gijon-2025", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - GRAN PREMIO DE GIJÓN.csv", resultados: [] }
+            { id: "trofeo-cocacola-2025", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO COCACOLA.csv", resultados: [] },
+            { id: "trofeo-lacera-2025", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO LACERA.csv", resultados: [] },
+            { id: "gran-premio-gijon-2025", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - GRAN PREMIO DE GIJÓN.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-valoriza-2025", nombre: "TROFEO VALORIZA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO VALORIZA.csv", resultados: [] },
-            { id: "trofeo-cla-2025", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
+            { id: "trofeo-valoriza-2025", nombre: "TROFEO VALORIZA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO VALORIZA.csv", resultados: [] },
+            { id: "trofeo-cla-2025", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/2025/CSI GIJÓN 2025 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
         ];
     }
 } else if (esEdicion2026) {
@@ -288,38 +288,38 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-siroko-2026", nombre: "TROFEO SIROKO", altura: "1.40 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-3.csv", resultados: [] },
-            { id: "trofeo-oquendo-2026", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Manga Ganadora", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-4.csv", resultados: [] }
+            { id: "trofeo-siroko-2026", nombre: "TROFEO SIROKO", altura: "1.40 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-3.csv", resultados: [] },
+            { id: "trofeo-oquendo-2026", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Manga Ganadora", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-4.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-artiem-2026", nombre: "TROFEO ARTIEM", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-5.csv", resultados: [] },
-            { id: "trofeo-esnova-2026", nombre: "TROFEO ESNOVA RACKS", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-6.csv", resultados: [] },
-            { id: "trofeo-funeraria-2026", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: ".//triple/CSV/2026/gijon2026-7.csv", resultados: [] }
+            { id: "trofeo-artiem-2026", nombre: "TROFEO ARTIEM", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-5.csv", resultados: [] },
+            { id: "trofeo-esnova-2026", nombre: "TROFEO ESNOVA RACKS", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-6.csv", resultados: [] },
+            { id: "trofeo-funeraria-2026", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: ".//CSV/2026/gijon2026-7.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-2026", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-8.csv", resultados: [] },
-            { id: "trofeo-dicar-2026", nombre: "TROFEO DICAR", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-9", resultados: [] },
-            { id: "trofeo-gijon-rural-2026", nombre: "TROFEO FUNDACIÓN GIJÓN RURAL", altura: "1.55 m", baremo: "A con cronómetro y desempate", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-10", resultados: [] }
+            { id: "trofeo-cocacola-2026", nombre: "TROFEO COCACOLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-8.csv", resultados: [] },
+            { id: "trofeo-dicar-2026", nombre: "TROFEO DICAR", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-9", resultados: [] },
+            { id: "trofeo-gijon-rural-2026", nombre: "TROFEO FUNDACIÓN GIJÓN RURAL", altura: "1.55 m", baremo: "A con cronómetro y desempate", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-10", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-mahou-2026", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-11.csv", resultados: [] },
-            { id: "trofeo-esfer-2026", nombre: "TROFEO ESFER", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-12.csv", resultados: [] },
-            { id: "trofeo-volvo-2026", nombre: "TROFEO VOLVO", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-13.csv", resultados: [] }
+            { id: "trofeo-mahou-2026", nombre: "TROFEO MAHOU", altura: "1.30/1.35 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-11.csv", resultados: [] },
+            { id: "trofeo-esfer-2026", nombre: "TROFEO ESFER", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-12.csv", resultados: [] },
+            { id: "trofeo-volvo-2026", nombre: "TROFEO VOLVO", altura: "1.45 m", baremo: "Speed C", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-13.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-2026", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-14.csv", resultados: [] },
-            { id: "trofeo-lacera-2026", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-15.csv", resultados: [] },
-            { id: "gran-premio-gijon-2026", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: ".//triple/CSV/2026/gijon2026-16.csv", resultados: [] }
+            { id: "trofeo-cocacola-2026", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-14.csv", resultados: [] },
+            { id: "trofeo-lacera-2026", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "Baremo A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-15.csv", resultados: [] },
+            { id: "gran-premio-gijon-2026", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: ".//CSV/2026/gijon2026-16.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-valoriza-2026", nombre: "TROFEO VALORIZA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-1.csv", resultados: [] },
-            { id: "trofeo-cla-2026", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//triple/CSV/2026/gijon2026-2.csv", resultados: [] }
+            { id: "trofeo-valoriza-2026", nombre: "TROFEO VALORIZA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-1.csv", resultados: [] },
+            { id: "trofeo-cla-2026", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/gijon2026-2.csv", resultados: [] }
         ];
     }
 } else {
@@ -328,38 +328,38 @@ if (esEdicion2016) {
     // ==========================================
     if (numeroDiaActual === 2) {
         pruebasJornada = [
-            { id: "trofeo-mahou", nombre: "TROFEO MAHOU", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO MAHOU.csv", resultados: [] },
-            { id: "trofeo-oquendo", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO OQUENDO.csv", resultados: [] }
+            { id: "trofeo-mahou", nombre: "TROFEO MAHOU", altura: "1.30 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO MAHOU.csv", resultados: [] },
+            { id: "trofeo-oquendo", nombre: "TROFEO OQUENDO", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO OQUENDO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 3) {
         pruebasJornada = [
-            { id: "trofeo-emulsa", nombre: "TROFEO EMULSA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO EMULSA.csv", resultados: [] },
-            { id: "trofeo-dicar", nombre: "TROFEO DICAR", altura: "1.45 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO DICAR.csv", resultados: [] },
-            { id: "trofeo-funeraria", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
+            { id: "trofeo-emulsa", nombre: "TROFEO EMULSA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO EMULSA.csv", resultados: [] },
+            { id: "trofeo-dicar", nombre: "TROFEO DICAR", altura: "1.45 m", baremo: "A con cronómetros", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO DICAR.csv", resultados: [] },
+            { id: "trofeo-funeraria", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 4) {
         pruebasJornada = [
-            { id: "trofeo-cocacola", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA.csv", resultados: [] },
-            { id: "trofeo-esfer", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO ESFER.csv", resultados: [] },
-            { id: "trofeo-caja-rural", nombre: "TROFEO FUNDACIÓN CAJA RURAL DE GIJÓN", altura: "1.555 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO FUNDACIÓN CAJA RURAL GIJÓN.csv", resultados: [] }
+            { id: "trofeo-cocacola", nombre: "TROFEO COCA-COLA", altura: "1.30/1.35 m", baremo: "Dos Fases Especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA.csv", resultados: [] },
+            { id: "trofeo-esfer", nombre: "TROFEO ESFER", altura: "1.40 m", baremo: "Acumulador", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO ESFER.csv", resultados: [] },
+            { id: "trofeo-caja-rural", nombre: "TROFEO FUNDACIÓN CAJA RURAL DE GIJÓN", altura: "1.555 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO FUNDACIÓN CAJA RURAL GIJÓN.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 5) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-ii", nombre: "TROFEO COCA-COLA II", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA II.csv", resultados: [] },
-            { id: "trofeo-caser", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
-            { id: "trofeo-volvo", nombre: "TROFEO VOLVO", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO VOLVO.csv", resultados: [] }
+            { id: "trofeo-cocacola-ii", nombre: "TROFEO COCA-COLA II", altura: "1.30/1.35 m", baremo: "A con cronómetro", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA II.csv", resultados: [] },
+            { id: "trofeo-caser", nombre: "TROFEO CASER GRUPO HELVETIA", altura: "1.45 m", baremo: "A con cronómetro y Desempate", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO CASER GRUPO HELVETIA.csv", resultados: [] },
+            { id: "trofeo-volvo", nombre: "TROFEO VOLVO", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO VOLVO.csv", resultados: [] }
         ];
     } else if (numeroDiaActual === 6) {
         pruebasJornada = [
-            { id: "trofeo-cocacola-iii", nombre: "TROFEO COCA-COLA III", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA III.csv", resultados: [] },
-            { id: "trofeo-lacera", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO LACERA.csv", resultados: [] },
-            { id: "gran-premio-gijon", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - GRAN PREMIO DE GIJÓN.csv", resultados: [] }
+            { id: "trofeo-cocacola-iii", nombre: "TROFEO COCA-COLA III", altura: "1.30/1.35 m", baremo: "A con cronómetro y Desempate", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO COCA-COLA III.csv", resultados: [] },
+            { id: "trofeo-lacera", nombre: "TROFEO LACERA", altura: "1.45 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO LACERA.csv", resultados: [] },
+            { id: "gran-premio-gijon", nombre: "GRAN PREMIO DE GIJÓN", altura: "1.60 m", baremo: "Dos Mangas", esDobleFase: false, esDesempate: true, archivoCSV: "/CSV/CSI GIJÓN 2024 - GRAN PREMIO DE GIJÓN.csv", resultados: [] }
         ];
     } else {
         // Día 1 por defecto
         pruebasJornada = [
-            { id: "trofeo-ema", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO EMA.csv", resultados: [] },
-            { id: "trofeo-cla", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/CSI GIJÓN 2024 - TROFEO CENTRAL LECHERA ASTURIANA.csv", resultados: [] }
+            { id: "trofeo-ema", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO EMA.csv", resultados: [] },
+            { id: "trofeo-cla", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/CSV/CSI GIJÓN 2024 - TROFEO CENTRAL LECHERA ASTURIANA.csv", resultados: [] }
         ];
     }
 }
@@ -395,11 +395,11 @@ async function cargarTodosLosCSVs() {
         // Limpiar dobles barras diagonales accidentales
         rutaCSV = rutaCSV.replace(/\/+/g, '/');
 
-        // Si la ruta ya incluye '/triple/' y estamos en una subcarpeta,
+        // Si la ruta ya incluye '/' y estamos en una subcarpeta,
         // ajustamos la ruta relativa limpiando prefijos duplicados
         if (paginaActual.includes('/20') && !rutaCSV.startsWith('../')) {
             // Asegura que no se duplique la carpeta raíz
-            if (rutaCSV.startsWith('/triple/')) {
+            if (rutaCSV.startsWith('/')) {
                 rutaCSV = '..' + rutaCSV;
             } else if (!rutaCSV.startsWith('../')) {
                 rutaCSV = '../' + rutaCSV.replace(/^\//, '');
