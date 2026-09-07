@@ -391,10 +391,9 @@ async function cargarTodosLosCSVs() {
         let rutaCSV = prueba.archivoCSV;
         
         // CORRECCIÓN CLAVE: Aplica ../ si estamos tanto en /2024/ como en /2025/
-        if (paginaActual.includes('/2024/') || paginaActual.includes('/2025/') || paginaActual.includes('/2016/') || paginaActual.includes('/2017/') || paginaActual.includes('/2018/') || paginaActual.includes('/2019/') || paginaActual.includes('/2022/') || paginaActual.includes('/2023/') || paginaActual.includes('/2026/')) {
-            rutaCSV = "../" + prueba.archivoCSV;
-        }
-
+       if (paginaActual.includes('/2016/') || paginaActual.includes('/2017/') || paginaActual.includes('/2018/') || paginaActual.includes('/2019/') || paginaActual.includes('/2022/') || paginaActual.includes('/2023/') || paginaActual.includes('/2024/') || paginaActual.includes('/2025/') || paginaActual.includes('/2026/')) {
+    rutaCSV = "../" + prueba.archivoCSV;
+}
         await new Promise((resolve) => {
             Papa.parse(rutaCSV, {
                 download: true,
