@@ -385,14 +385,25 @@ async function inicializar() {
 // ==========================================
 // CARGA Y PROCESADO DE CSVs (CORREGIDO)
 // ==========================================
+// ==========================================
+// CARGA Y PROCESADO DE CSVs (RUTAS CORREGIDAS)
+// ==========================================
 async function cargarTodosLosCSVs() {
     for (let prueba of pruebasJornada) {
         let rutaCSV = prueba.archivoCSV;
         
-        // CORRECCIÓN CLAVE: Aplica ../ de forma limpia previniendo sintaxis rotas por caracteres ocultos
-        const anosPeticion = ['/2016/', '/2017/', '/2018/', '/2019/', '/2022/', '/2023/', '/2024/', '/2025/', '/2026/'];
-        if (anosPeticion.some(ano => paginaActual.includes(ano))) {
-            rutaCSV = "../" + prueba.archivoCSV;
+        // Limpiar dobles barras diagonales accidentales
+        rutaCSV = rutaCSV.replace(/\/+/g, '/');
+
+        // Si la ruta ya incluye '/triple/' y estamos en una subcarpeta,
+        // ajustamos la ruta relativa limpiando prefijos duplicados
+        if (paginaActual.includes('/20') && !rutaCSV.startsWith('../')) {
+            // Asegura que no se duplique la carpeta raíz
+            if (rutaCSV.startsWith('/triple/')) {
+                rutaCSV = '..' + rutaCSV;
+            } else if (!rutaCSV.startsWith('../')) {
+                rutaCSV = '../' + rutaCSV.replace(/^\//, '');
+            }
         }
 
         await new Promise((resolve) => {
@@ -407,7 +418,8 @@ async function cargarTodosLosCSVs() {
                     }
                     resolve();
                 },
-                error: function() { 
+                error: function(err) { 
+                    console.error("Error al cargar el archivo:", rutaCSV, err);
                     resolve(); 
                 }
             });
