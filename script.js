@@ -17,7 +17,7 @@ const esEdicion2016 = paginaActual.includes('2016');
 
 let pruebasJornada = [];
 
-if (esEdicion2016) 
+if (esEdicion2016) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2016
     // ==========================================
@@ -56,7 +56,7 @@ if (esEdicion2016)
             { id: "trofeo-funeraria-2016", nombre: "TROFEO FUNERARIA GIJONESA", altura: "1.50 m", baremo: "Manga ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2016/CSIO GIJÓN 2016 - TROFEO FUNERARIA GIJONESA.csv", resultados: [] }
         ];
     }
-    else if (esEdicion2017) 
+} else if (esEdicion2017) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2017
     // ==========================================
@@ -95,7 +95,7 @@ if (esEdicion2016)
             { id: "trofeo-lacera-2017", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Manga Ganadora", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2017/CSIO 2017 - TROFEO LACERA.csv", resultados: [] }
         ];
     }
-    else if (esEdicion2018) 
+} else if (esEdicion2018) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2018
     // ==========================================
@@ -129,7 +129,7 @@ if (esEdicion2016)
             { id: "trofeo-lacera-2018", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2018/CSIO 2018 - TROFEO LACERA.csv", resultados: [] }
         ];
     }
-    else if (esEdicion2019) 
+} else if (esEdicion2019) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2019
     // ==========================================
@@ -163,7 +163,7 @@ if (esEdicion2016)
             { id: "trofeo-ema-2019", nombre: "TROFEO LACERA", altura: "1.50 m", baremo: "Dos Fases", esDobleFase: true, esDesempate: false, archivoCSV: "..//triple/CSV/2019/CSIO 2019 - TROFEO EMA.csv", resultados: [] }
         ];
     }
-    else if (esEdicion2022) 
+} else if (esEdicion2022) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2022
     // ==========================================
@@ -200,9 +200,9 @@ if (esEdicion2016)
         // Día 1 por defecto
         pruebasJornada = [
             { id: "trofeo-ema-2022", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2022/CSI 2022 - TROFEO EMA.csv", resultados: [] }
-            ];
+        ];
     }
-    else if (esEdicion2023) 
+} else if (esEdicion2023) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2023
     // ==========================================
@@ -240,9 +240,9 @@ if (esEdicion2016)
         pruebasJornada = [
             { id: "trofeo-ema-2023", nombre: "TROFEO EMA", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO EMA.csv", resultados: [] },
             { id: "trofeo-cla-2023", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases Especial", esDobleFase: false, esDesempate: false, archivoCSV: "/triple/CSV/2023/CSI 2023 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
-            ];
+        ];
     }
-    else if (esEdicion2025) {
+} else if (esEdicion2025) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2025
     // ==========================================
@@ -282,8 +282,7 @@ if (esEdicion2016)
             { id: "trofeo-cla-2025", nombre: "TROFEO CENTRAL LECHERA ASTURIANA", altura: "1.40 m", baremo: "Dos Fases especial", esDobleFase: true, esDesempate: false, archivoCSV: "/triple/CSV/2025/CSI GIJÓN 2025 - TROFEO CENTRAL LECHERA.csv", resultados: [] }
         ];
     }
-}
-    else if (esEdicion2026) {
+} else if (esEdicion2026) {
     // ==========================================
     // CONFIGURACIÓN DE PRUEBAS 2026
     // ==========================================
@@ -390,10 +389,12 @@ async function cargarTodosLosCSVs() {
     for (let prueba of pruebasJornada) {
         let rutaCSV = prueba.archivoCSV;
         
-        // CORRECCIÓN CLAVE: Aplica ../ si estamos tanto en /2024/ como en /2025/
-       if (paginaActual.includes('/2016/') || paginaActual.includes('/2017/') || paginaActual.includes('/2018/') || paginaActual.includes('/2019/') || paginaActual.includes('/2022/') || paginaActual.includes('/2023/') || paginaActual.includes('/2024/') || paginaActual.includes('/2025/') || paginaActual.includes('/2026/')) {
-    rutaCSV = "../" + prueba.archivoCSV;
-}
+        // CORRECCIÓN CLAVE: Aplica ../ de forma limpia previniendo sintaxis rotas por caracteres ocultos
+        const anosPeticion = ['/2016/', '/2017/', '/2018/', '/2019/', '/2022/', '/2023/', '/2024/', '/2025/', '/2026/'];
+        if (anosPeticion.some(ano => paginaActual.includes(ano))) {
+            rutaCSV = "../" + prueba.archivoCSV;
+        }
+
         await new Promise((resolve) => {
             Papa.parse(rutaCSV, {
                 download: true,
@@ -757,8 +758,6 @@ function renderTablaAdaptable(prueba) {
     tbodyHTML += `</tbody>`;
     tabla.innerHTML = theadHTML + tbodyHTML;
 }
-
-
 
 function procesarCSVManual() {
     const fileInput = document.getElementById('file-csv');
