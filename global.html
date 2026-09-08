@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concursos de Saltos Internacionales</title>
+    <!-- Carga de PapaParse para procesar los CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -29,10 +31,9 @@
             flex-direction: column;
         }
 
-        /* Header */
         header {
             text-align: center;
-            padding: 3rem 1rem 2rem;
+            padding: 3rem 1rem 1.5rem;
             background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0) 100%);
         }
 
@@ -51,6 +52,118 @@
             font-size: 1.1rem;
         }
 
+        /* Buscador Container */
+        .search-container {
+            max-width: 650px;
+            margin: 1.5rem auto 0;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.2rem 1rem 3rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--text-main);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        /* Desplegable de Resultados */
+        .search-results {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 1rem;
+            right: 1rem;
+            background: rgba(30, 41, 59, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-item {
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: background 0.2s ease;
+        }
+
+        .search-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-item:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .search-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .search-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .search-item-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .search-item-event {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
         /* Container & Grid */
         .container {
             max-width: 1200px;
@@ -66,7 +179,6 @@
             gap: 2rem;
         }
 
-        /* Card Component */
         .card {
             position: relative;
             height: 380px;
@@ -77,15 +189,12 @@
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        box-shadow 0.4s ease, 
-                        border-color 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
         }
 
-        /* Background Flag Image - Brighter for clarity */
         .card-bg {
             position: absolute;
             top: 0;
@@ -99,29 +208,20 @@
             z-index: 1;
         }
 
-        /* Dark Overlay Gradient - Softer dark gradient */
         .card-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                180deg, 
-                rgba(15, 23, 42, 0.1) 0%, 
-                rgba(15, 23, 42, 0.5) 45%, 
-                rgba(15, 23, 42, 0.92) 100%
-            );
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.5) 45%, rgba(15, 23, 42, 0.92) 100%);
             z-index: 2;
         }
 
-        /* Content inside Card */
         .card-content {
             position: relative;
             z-index: 3;
             padding: 1.8rem;
-            transform: translateY(0);
-            transition: transform 0.4s ease;
         }
 
         .card-header-info {
@@ -142,7 +242,6 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .card-date {
@@ -163,18 +262,12 @@
             font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
-            line-height: 1.2;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card-location {
             color: var(--text-muted);
             font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
             margin-bottom: 1.2rem;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .card-btn {
@@ -185,13 +278,10 @@
             font-weight: 600;
             color: var(--accent-color);
             transition: gap 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* Hover Effects */
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             border-color: rgba(56, 189, 248, 0.6);
         }
 
@@ -204,32 +294,10 @@
             gap: 0.8rem;
         }
 
-        /* Specific Backgrounds (Flags) */
-        .bg-belgica {
-            background-image: url('https://flagcdn.com/w1600/be.png');
-        }
+        /* Banderas */
+        .bg-belgica { background-image: url('https://flagcdn.com/w1600/be.png'); }
+        .bg-reino-unido { background-image: url('https://flagcdn.com/w1600/gb.png'); }
 
-        .bg-reino-unido {
-            background-image: url('https://flagcdn.com/w1600/gb.png');
-        }
-
-        .bg-espana {
-            background-image: url('https://flagcdn.com/w1600/es.png');
-        }
-
-        .bg-francia {
-            background-image: url('https://flagcdn.com/w1600/fr.png');
-        }
-
-        .bg-alemania {
-            background-image: url('https://flagcdn.com/w1600/de.png');
-        }
-
-        .bg-paises-bajos {
-            background-image: url('https://flagcdn.com/w1600/nl.png');
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
@@ -237,28 +305,25 @@
             font-size: 0.85rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-            .grid-pruebas {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Concursos de Saltos Internacionales</h1>
-        <p>Selecciona una sede para acceder a los datos y resultados de las pruebas</p>
+        <p>Busca por jinete, caballo, prueba o altura</p>
+
+        <div class="search-container">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar por jinete, caballo, prueba o altura..." autocomplete="off">
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
     </header>
 
     <div class="container">
         <div class="grid-pruebas">
-
-            <!-- Tarjeta Bruselas -->
             <a href="bruselas.html" class="card">
                 <div class="card-bg bg-belgica"></div>
                 <div class="card-overlay"></div>
@@ -273,7 +338,6 @@
                 </div>
             </a>
 
-            <!-- Tarjeta Chepstow -->
             <a href="chepstow.html" class="card">
                 <div class="card-bg bg-reino-unido"></div>
                 <div class="card-overlay"></div>
@@ -287,67 +351,6 @@
                     <span class="card-btn">Ver Resultados &rarr;</span>
                 </div>
             </a>
-
-            <!-- Tarjeta Vejer de la Frontera -->
-            <a href="vejer.html" class="card">
-                <div class="card-bg bg-espana"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <div class="card-header-info">
-                        <span class="card-badge">Sunshine Tour</span>
-                        <span class="card-date">📅 10 Feb - 22 Mar</span>
-                    </div>
-                    <h2 class="card-title">CSI Vejer</h2>
-                    <p class="card-location">📍 Cádiz, España</p>
-                    <span class="card-btn">Ver Resultados &rarr;</span>
-                </div>
-            </a>
-
-            <!-- Tarjeta Fontainebleau -->
-            <a href="fontainebleau.html" class="card">
-                <div class="card-bg bg-francia"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <div class="card-header-info">
-                        <span class="card-badge">CSI 4*</span>
-                        <span class="card-date">📅 17-20 Abr</span>
-                    </div>
-                    <h2 class="card-title">CSI Fontainebleau</h2>
-                    <p class="card-location">📍 Fontainebleau, Francia</p>
-                    <span class="card-btn">Ver Resultados &rarr;</span>
-                </div>
-            </a>
-
-            <!-- Tarjeta Aquisgrán -->
-            <a href="aquisgran.html" class="card">
-                <div class="card-bg bg-alemania"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <div class="card-header-info">
-                        <span class="card-badge">CHIO Aachen</span>
-                        <span class="card-date">📅 27 Jun - 06 Jul</span>
-                    </div>
-                    <h2 class="card-title">CSIO Aquisgrán</h2>
-                    <p class="card-location">📍 Aquisgrán, Alemania</p>
-                    <span class="card-btn">Ver Resultados &rarr;</span>
-                </div>
-            </a>
-
-            <!-- Tarjeta Valkenswaard -->
-            <a href="valkenswaard.html" class="card">
-                <div class="card-bg bg-paises-bajos"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <div class="card-header-info">
-                        <span class="card-badge">Tops International</span>
-                        <span class="card-date">📅 18-20 Jul</span>
-                    </div>
-                    <h2 class="card-title">CSI Valkenswaard</h2>
-                    <p class="card-location">📍 Valkenswaard, Países Bajos</p>
-                    <span class="card-btn">Ver Resultados &rarr;</span>
-                </div>
-            </a>
-
         </div>
     </div>
 
@@ -355,5 +358,133 @@
         <p>&copy; 2026 Panel de Control Hípico - Todos los derechos reservados</p>
     </footer>
 
+    <script>
+        // 1. Configuración de los archivos CSV que quieres cargar
+        const archivosCSV = [
+            { evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 1.csv", prueba: "Prueba 1 — CSI5* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 2.csv", prueba: "Prueba 2 — CSI5* 1m50" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 3.csv", prueba: "Prueba 3 — CSI5* 1m55" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 4.csv", prueba: "Prueba 4 — CSI5* 1m50" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 5.csv", prueba: "Prueba 5 — CSI5* 1m50" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 6.csv", prueba: "Prueba 6 — CSI5* GP 1m60" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 11.csv", prueba: "Prueba 11 — CSI1* 1m25" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 12.csv", prueba: "Prueba 12 — CSI1* 1m20" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 13.csv", prueba: "Prueba 13 — CSI1* 1m15" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 14.csv", prueba: "Prueba 14 — CSI1* 1m25" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 15.csv", prueba: "Prueba 15 — CSI1* 1m15" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 16.csv", prueba: "Prueba 16 — CSI1* 1m20" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 17.csv", prueba: "Prueba 17 — CSI1* 1m20" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 18.csv", prueba: "Prueba 18 — CSI1* GP 1m30" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 19.csv", prueba: "Prueba 19 — CSI1* 1m25" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 21.csv", prueba: "Prueba 21 — CSI2* 1m30" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 22.csv", prueba: "Prueba 22 — CSI2* 1m35" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 23.csv", prueba: "Prueba 23 — CSI2* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 24.csv", prueba: "Prueba 24 — CSI2* 1m35" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 25.csv", prueba: "Prueba 25 — CSI2* 1m30" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 26.csv", prueba: "Prueba 26 — CSI2* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 27.csv", prueba: "Prueba 27 — CSI2* GP 1m45" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 28.csv", prueba: "Prueba 28 — CSI2* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 29.csv", prueba: "Prueba 29 — CSI2* 1m35" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 30.csv", prueba: "Prueba 30 — CSI2* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 31.csv", prueba: "Prueba 31 — CSI3* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 32.csv", prueba: "Prueba 32 — CSI3* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 33.csv", prueba: "Prueba 33 — CSI3* 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 34.csv", prueba: "Prueba 34 — CSI3* 1m45" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 35.csv", prueba: "Prueba 35 — CSI3* 1m45" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 36.csv", prueba: "Prueba 36 — CSI3* 1m45" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 37.csv", prueba: "Prueba 37 — CSI3* 1m45" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 38.csv", prueba: "Prueba 38 — CSI3* GP 1m50" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 41.csv", prueba: "Prueba 41 — CSIYH 6Y 1m25" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 42.csv", prueba: "Prueba 42 — CSIYH 6Y 1m25" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 43.csv", prueba: "Prueba 43 — CSIYH 7Y / 8Y 1m35 / 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 44.csv", prueba: "Prueba 44 — CSIYH 6Y 1m30" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 45.csv", prueba: "Prueba 45 — CSIYH 7Y / 8Y 1m35 / 1m40" },
+{ evento: "CSI Bruselas", url: "bruselas.html", csv: "./CSV/2026/BRUSELAS 46.csv", prueba: "Prueba 46 — CSIYH 7Y / 8Y 1m40 / 1m45" },
+
+        ];
+
+        let baseDatosCompleta = [];
+
+        // 2. Cargar todos los CSV e indexar la información
+        function cargarTodosLosCSV() {
+            archivosCSV.forEach(item => {
+                Papa.parse(item.csv, {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        results.data.forEach(fila => {
+                            // Detectar campos dinámicamente según nombres comunes
+                            const jinete = fila["Rider"] || fila["Jinete"] || fila["Rider Name"] || "";
+                            const caballo = fila["Horse"] || fila["Caballo"] || fila["Horse Name"] || "";
+                            const ranking = fila["Rank"] || fila["Posicion"] || fila["Pos"] || "";
+
+                            if (jinete || caballo) {
+                                baseDatosCompleta.push({
+                                    evento: item.evento,
+                                    url: item.url,
+                                    prueba: item.prueba,
+                                    jinete: jinete,
+                                    caballo: caballo,
+                                    posicion: ranking
+                                });
+                            }
+                        });
+                    },
+                    error: function(err) {
+                        console.warn("No se pudo cargar el archivo " + item.csv + " (Asegúrate de usar Live Server)");
+                    }
+                });
+            });
+        }
+
+        // Ejecutar carga al iniciar
+        cargarTodosLosCSV();
+
+        // 3. Lógica de búsqueda
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+
+            if (query.length < 2) {
+                searchResults.classList.remove('active');
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            // Filtrar resultados coincidentes por jinete, caballo, prueba o evento
+            const coincidencias = baseDatosCompleta.filter(item => 
+                item.jinete.toLowerCase().includes(query) ||
+                item.caballo.toLowerCase().includes(query) ||
+                item.prueba.toLowerCase().includes(query) ||
+                item.evento.toLowerCase().includes(query)
+            ).slice(0, 30); // Limitar a los primeros 30 resultados para mayor fluidez
+
+            if (coincidencias.length > 0) {
+                searchResults.innerHTML = coincidencias.map(item => `
+                    <a href="${item.url}" class="search-item">
+                        <div class="search-item-info">
+                            <span class="search-item-title">🏇 ${item.jinete} ${item.caballo ? '— ' + item.caballo : ''}</span>
+                            <span class="search-item-sub">📋 ${item.prueba} ${item.posicion ? '(Pos. ' + item.posicion + ')' : ''}</span>
+                        </div>
+                        <span class="search-item-event">📍 ${item.evento}</span>
+                    </a>
+                `).join('');
+            } else {
+                searchResults.innerHTML = `<div class="no-results">No se encontraron datos que coincidan con "${query}"</div>`;
+            }
+
+            searchResults.classList.add('active');
+        });
+
+        // Ocultar resultados al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
