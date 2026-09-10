@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI Bialy - Día 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #368a8e;
+            --bg-card-hover: #34d399;
+            --accent-blue: #38bdf8;
+            --accent-emerald: #34d399;
+            --accent-amber: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header */
+        .main-header {
+            background: linear-gradient(135deg, #0d47a1, #1b5e20);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .main-header h1 {
+            font-size: 2rem;
+        }
+
+        /* Layout */
+        .layout-container {
+            display: flex;
+            min-height: calc(100vh - 100px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 310px;
+            background-color: #ffffff;
+            padding: 1.2rem;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .search-box {
+            margin-bottom: 1.2rem;
+            background: #e8f5e9;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .search-box label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #1b5e20;
+            margin-bottom: 0.3rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .global-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: #1b5e20;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        /* Sidebar blocks */
+        .sidebar-block {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Contenido */
+        .content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: #1b5e20;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #1b5e20;
+        }
+
+        .card h3 {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d47a1;
+            margin-top: 0.3rem;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            max-height: 350px;
+        }
+
+        /* Tabla */
+        .table-container {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.8rem;
+            color: #1b5e20;
+        }
+
+        th, td {
+            padding: 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Navegación Días */
+        .nav-dias-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 15px 0 20px 0;
+            width: 100%;
+        }
+
+        .btn-nav-dia {
+            display: inline-block;
+            background-color: #1b5e20;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            min-width: 100px;
+        }
+
+        .btn-nav-dia:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+
+        .btn-spacer {
+            min-width: 100px;
+            visibility: hidden;
+        }
+
+        .dia-actual-label {
+            font-weight: bold;
+            color: #1b5e20;
+            font-size: 1.15rem;
+            white-space: nowrap;
+        }
+
+        .imagen-fija {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .layout-container { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>WIERZBNA BIAŁY LAS</h1>
+        <p>Centro Hípico de Bialy Las| Edición 2026</p>
+    </header>
+
+    <div class="layout-container">
+        
+        <aside id="sidebar-dias" class="sidebar">
+            <div class="search-box" style="margin-bottom: 1.5rem;">
+                <label for="input-busqueda" style="font-weight: bold; display: block; margin-bottom: 5px;">🔎 Buscador en vivo</label>
+                <input 
+                    type="text" 
+                    id="input-busqueda" 
+                    placeholder="Jinete, caballo..." 
+                    onkeyup="buscarEnJornada()"
+                    style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;"
+                >
+            </div>
+
+            <h2>Navegación</h2>
+            <a href="../index.html" class="global-btn" style="text-align: center; text-decoration: none; display: block; margin-bottom: 1.5rem; background-color: #1b5e20; color: white; padding: 10px; border-radius: 6px; font-weight: bold;">🏠 Volver al Inicio</a>
+
+            <div class="sidebar-block" style="margin-bottom: 1.5rem;">
+                <h3 style="color: #1b5e20; border-bottom: 2px solid #e8f5e9; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem;">📅 Bialy Las 2026</h3>
+                <ul id="lista-dias-edicion" style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 5px;"><a href="bialy.html" style="text-decoration: none; display: flex; justify-content: space-between; padding: 8px; border-radius: 4px; color: #333; font-weight: 500;"><span>2026</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-block">
+                <h3 style="color: #1b5e20; border-bottom: 2px solid #e8f5e9; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem;">🏇 Pruebas del Día</h3>
+                <ul id="lista-pruebas-dia" class="test-list" style="list-style: none; padding: 0; margin: 0;">
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content-header">
+                <div class="badge-tag" id="badge-edicion">Edición 2026</div>
+                <h2 id="titulo-jornada">WIERZBNA BIAŁY LAS</h2>
+                <p id="subtitulo-jornada">Selecciona una prueba para consultar su clasificación y gráficos</p>
+            </header>
+
+            <section class="csv-import-card" style="background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                <div class="csv-upload-controls" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div class="input-group" style="flex: 1; min-width: 250px;">
+                        <label for="select-prueba-activa" style="font-weight: bold; display: block; margin-bottom: 5px;">Prueba a visualizar:</label>
+                        <select id="select-prueba-activa" onchange="cambiarPruebaActiva(this.value)" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 1rem;">
+                        </select>
+                    </div>
+                </div>
+                <div id="csv-status" class="status-msg" style="margin-top: 10px;"></div>
+            </section>
+
+            <section class="cards-grid">
+                <div class="card">
+                    <h3>Prueba Visualizada</h3>
+                    <p class="card-value" id="stat-pruebas" style="font-size: 1.2rem; color: #1b5e20;">-</p>
+                </div>
+                <div class="card">
+                    <h3>Binomios en Pista</h3>
+                    <p class="card-value" id="stat-binomios">0</p>
+                </div>
+                <div class="card">
+                    <h3>Recorridos sin Falta (Ceros)</h3>
+                    <p class="card-value" id="stat-ceros">0</p>
+                </div>
+                <div class="card">
+                    <h3>Mejor Tiempo</h3>
+                    <p class="card-value" id="stat-tiempo">--</p>
+                </div>
+            </section>
+
+            <section class="chart-container" style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); height: 350px;">
+                <h3 id="titulo-grafico" style="margin-top: 0; color: #1b5e20;">📊 Gráfico de Tiempos</h3>
+                <div style="position: relative; height: 280px; width: 100%;">
+                    <img src="https://equifestival.com/wp-content/uploads/2026/02/cropped-equifest_m.jpg" alt="CSI Bialy" class="imagen-fija">
+                </div>
+            </section>
+
+            <section class="table-container">
+                <div class="table-header">
+                    <h3 id="titulo-tabla">Clasificación General</h3>
+                </div>
+                <table id="tabla-resultados">
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const paginaActual = window.location.pathname;
+        const matchDia = paginaActual.match(/(\d+)\.html/);
+        const numeroDiaActual = matchDia ? parseInt(matchDia[1], 10) : 1;
+
+        let pruebasJornada = [
+{ id: "trofeo-bialy-1", nombre: "1 - CSI3* - 1m30 Immergass Cup", altura: "1.30 m", baremo: "Dos fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 1.csv", resultados: [] },
+{ id: "trofeo-bialy-2", nombre: "2 - CSI3* - 1m40 Dyrek Sport Stable Cup", altura: "1.40 m", baremo: "Dos fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 2.csv", resultados: [] },
+{ id: "trofeo-bialy-3", nombre: "3 - CSI3* - 1m45 ARiMR Cup", altura: "1.45 m", baremo: "Dos fases", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 3.csv", resultados: [] },
+{ id: "trofeo-bialy-4", nombre: "4 - CSI3* - 1m40 KOWR Cup", altura: "1.40 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 4.csv", resultados: [] },
+{ id: "trofeo-bialy-5", nombre: "5 - CSI3* - 1m50 Tauron Cup", altura: "1.50 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 5.csv", resultados: [] },
+{ id: "trofeo-bialy-6", nombre: "6 - CSI3* - 1m30 KGHM Cup", altura: "1.30 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 6.csv", resultados: [] },
+{ id: "trofeo-bialy-7", nombre: "7 - CSI3* - 1m45 Final Silver Tour - LOTTO Cup", altura: "1.45 m", baremo: "Winning round", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 7.csv", resultados: [] },
+{ id: "trofeo-bialy-8", nombre: "8 - CSI3* - 1m35 Final Bronze Tour - Atlas Ward Cup", altura: "1.35 m", baremo: "Dos fases", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 8.csv", resultados: [] },
+{ id: "trofeo-bialy-9", nombre: "9 - CSI3* - 1m50 Grand Prix Gold Tour - Equisystem Cup", altura: "1.50 m", baremo: "A con desempate", esDobleFase: false, esDesempate: true, archivoCSV: ".//CSV/2026/BIALY 9.csv", resultados: [] },
+{ id: "trofeo-bialy-10", nombre: "10 - CSI1* - 1m10 Swidnica Cup", altura: "1.10 m", baremo: "Dos fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 10.csv", resultados: [] },
+{ id: "trofeo-bialy-11", nombre: "11 - CSI1* - 1m20 Dr Horse Cup", altura: "1.20 m", baremo: "Dos fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 11.csv", resultados: [] },
+{ id: "trofeo-bialy-12", nombre: "12 - CSI1* - 1m10 Wroclaw Airport Cup", altura: "1.10 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 12.csv", resultados: [] },
+{ id: "trofeo-bialy-13", nombre: "13 - CSI1* - 1m20 M&A Cup", altura: "1.20 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 13.csv", resultados: [] },
+{ id: "trofeo-bialy-14", nombre: "14 - CSI1* - 1m15 Pro-Linen Cup", altura: "1.15 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 14.csv", resultados: [] },
+{ id: "trofeo-bialy-15", nombre: "15 - CSI1* - 1m25 Domino Poland Cup", altura: "1.25 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 15.csv", resultados: [] },
+{ id: "trofeo-bialy-16", nombre: "16 - CSIYH 6&7 yo - 1m20 / 1m25 Western City Cup", altura: "1.20 / 1.25 m", baremo: "Dos fases especial", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 16.csv", resultados: [] },
+{ id: "trofeo-bialy-17", nombre: "17 - CSIYH 6&7 years old - 1m20 / 1m25 Lower Silesia Cup", altura: "1.20 / 1.25 m", baremo: "A con cronómetro", esDobleFase: false, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 17.csv", resultados: [] },
+{ id: "trofeo-bialy-18", nombre: "18 - CSIYH 6&7 years old - 1m20 / 1m25 Zarów Cup", altura: "1.20 / 1.25 m", baremo: "Dos fases", esDobleFase: true, esDesempate: false, archivoCSV: ".//CSV/2026/BIALY 18.csv", resultados: [] },
+        ];
+
+        let pruebaActivaId = pruebasJornada[0] ? pruebasJornada[0].id : "";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            inicializar();
+            generarNavegacionDias();
+        });
+
+        async function inicializar() {
+            poblarDesplegablePruebas();
+            poblarListaPruebasLateral();
+            await cargarTodosLosCSVs();
+            mostrarPrueba(pruebaActivaId);
+        }
+
+        async function cargarTodosLosCSVs() {
+            for (let prueba of pruebasJornada) {
+                let rutaCSV = prueba.archivoCSV.replace(/\/+/g, '/');
+
+                if (paginaActual.includes('/20') && !rutaCSV.startsWith('../')) {
+                    if (rutaCSV.startsWith('/')) {
+                        rutaCSV = '..' + rutaCSV;
+                    } else if (!rutaCSV.startsWith('../')) {
+                        rutaCSV = '../' + rutaCSV.replace(/^\//, '');
+                    }
+                }
+
+                await new Promise((resolve) => {
+                    Papa.parse(rutaCSV, {
+                        download: true,
+                        header: true,
+                        skipEmptyLines: true,
+                        delimiter: "",
+                        complete: function(results) {
+                            if (results.data && results.data.length > 0) {
+                                procesarDatosCSV(results.data, prueba.id);
+                            }
+                            resolve();
+                        },
+                        error: function(err) { 
+                            console.error("Error al cargar el archivo:", rutaCSV, err);
+                            resolve(); 
+                        }
+                    });
+                });
+            }
+        }
+
+        function procesarDatosCSV(filas, pruebaId) {
+            if (!filas || filas.length === 0) return;
+            const primeraFila = filas[0];
+
+            const limpiarPuntos = (valor) => {
+                if (!valor) return 0;
+                const v = String(valor).trim().toUpperCase();
+                if (v === 'RET' || v === 'RETIRADO') return 'RET';
+                if (v === 'EL' || v === 'ELIMINADO' || v === 'ELIM') return 'EL';
+                
+                const num = parseFloat(v.replace(',', '.'));
+                return isNaN(num) ? 0 : num;
+            };
+
+            const tieneDobleFase = Object.keys(primeraFila).some(k => {
+                const key = k.toLowerCase();
+                return key.includes('fase i') || key.includes('fase 1') || key.includes('fase ii') || key.includes('fase 2');
+            });
+
+            const tieneDesempate = Object.keys(primeraFila).some(k => {
+                const key = k.toLowerCase();
+                return key.includes('desempate') || key.includes('jump-off') || key.includes('jump off') || key.includes('manga');
+            });
+            
+            let formateados = filas.map(f => {
+                if (tieneDobleFase) {
+                    const f1Puntos = limpiarPuntos(obtenerCampo(f, ['puntos fase i', 'fase i puntos', 'fase 1 puntos', 'fase i faltas', 'puntos fase 1']));
+                    const f2Puntos = limpiarPuntos(obtenerCampo(f, ['puntos fase ii', 'fase ii puntos', 'fase 2 puntos', 'fase ii faltas', 'puntos fase 2']));
+                    const totPuntos = limpiarPuntos(obtenerCampo(f, ['total', 'total puntos', 'total faltas']));
+
+                    return {
+                        pos: obtenerCampo(f, ['posición', 'posicion', 'pos', 'pos.']),
+                        jinete: obtenerCampo(f, ['atleta', 'jinete', 'amazona', 'participante', 'jinete/amazona']),
+                        caballo: obtenerCampo(f, ['caballo']),
+                        premio: obtenerCampo(f, ['premio (€)', 'premio', 'premios']),
+                        fase1Puntos: f1Puntos,
+                        fase1Tiempo: (f1Puntos === 'RET' || f1Puntos === 'EL') ? '-' : obtenerCampo(f, ['tiempo fase i', 'fase i tiempo', 'fase 1 tiempo', 'tiempo fase 1']),
+                        fase2Puntos: f2Puntos,
+                        fase2Tiempo: (f2Puntos === 'RET' || f2Puntos === 'EL') ? '-' : obtenerCampo(f, ['tiempo fase ii', 'fase ii tiempo', 'fase 2 tiempo', 'tiempo fase 2']),
+                        totalPuntos: totPuntos
+                    };
+                } else if (tieneDesempate) {
+                    const pts = limpiarPuntos(obtenerCampo(f, ['puntos', 'faltas', 'puntos recorrido', 'faltas recorrido']));
+                    const despts = limpiarPuntos(obtenerCampo(f, ['puntos desempate', 'desempate puntos', 'faltas desempate', 'desempate faltas', 'puntos manga', 'manga puntos']));
+
+                    return {
+                        pos: obtenerCampo(f, ['posición', 'posicion', 'pos', 'pos.']),
+                        jinete: obtenerCampo(f, ['atleta', 'jinete', 'amazona', 'participante', 'jinete/amazona']),
+                        caballo: obtenerCampo(f, ['caballo']),
+                        premio: obtenerCampo(f, ['premio (€)', 'premio', 'premios']),
+                        puntos: pts,
+                        tiempo: (pts === 'RET' || pts === 'EL') ? '-' : obtenerCampo(f, ['tiempo', 'tiempo recorrido']),
+                        desempatePuntos: despts,
+                        desempateTiempo: (despts === 'RET' || despts === 'EL') ? '-' : obtenerCampo(f, ['tiempo desempate', 'desempate tiempo', 'tiempo manga', 'manga tiempo'])
+                    };
+                } else {
+                    const pts = limpiarPuntos(obtenerCampo(f, ['puntos', 'faltas']));
+
+                    return {
+                        pos: obtenerCampo(f, ['posición', 'posicion', 'pos', 'pos.']),
+                        jinete: obtenerCampo(f, ['atleta', 'jinete', 'amazona', 'participante', 'jinete/amazona']),
+                        caballo: obtenerCampo(f, ['caballo']),
+                        premio: obtenerCampo(f, ['premio (€)', 'premio', 'premios']),
+                        puntos: pts,
+                        tiempo: (pts === 'RET' || pts === 'EL') ? '-' : obtenerCampo(f, ['tiempo'])
+                    };
+                }
+            });
+
+            const idx = pruebasJornada.findIndex(p => p.id === pruebaId);
+            if (idx !== -1) {
+                pruebasJornada[idx].esDobleFase = tieneDobleFase;
+                pruebasJornada[idx].esDesempate = tieneDesempate;
+                pruebasJornada[idx].resultados = formateados;
+            }
+        }
+
+        function obtenerCampo(objeto, nombresPosibles) {
+            if (!objeto) return '-';
+            const normalizar = (texto) => texto.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+            const nombresLimpios = nombresPosibles.map(n => normalizar(n));
+            const claveEncontrada = Object.keys(objeto).find(key => nombresLimpios.includes(normalizar(key)));
+            return (claveEncontrada && objeto[claveEncontrada] !== "") ? objeto[claveEncontrada] : '-';
+        }
+
+        function generarNavegacionDias() {
+            const header = document.querySelector('.main-header');
+            if (!header) return;
+
+            const navDiv = document.createElement('div');
+            navDiv.className = 'nav-dias-container';
+
+            const labelDia = document.createElement('span');
+            labelDia.className = 'dia-actual-label';
+            labelDia.innerText = `Jornada ${numeroDiaActual}`;
+            navDiv.appendChild(labelDia);
+
+            header.appendChild(navDiv);
+        }
+
+        function poblarDesplegablePruebas() {
+            const select = document.getElementById('select-prueba-activa');
+            if (!select) return;
+            select.innerHTML = '';
+            pruebasJornada.forEach(p => {
+                select.innerHTML += `<option value="${p.id}">${p.nombre}</option>`;
+            });
+        }
+
+        function poblarListaPruebasLateral() {
+            const ul = document.getElementById('lista-pruebas-dia');
+            if (!ul) return;
+            ul.innerHTML = '';
+            pruebasJornada.forEach(p => {
+                ul.innerHTML += `<li><button class="test-btn" style="width: 100%; text-align: left; padding: 8px 12px; margin-bottom: 5px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 4px; cursor: pointer;" onclick="cambiarPruebaActiva('${p.id}')">🏇 ${p.nombre}</button></li>`;
+            });
+        }
+
+        function cambiarPruebaActiva(pruebaId) {
+            pruebaActivaId = pruebaId;
+            const select = document.getElementById('select-prueba-activa');
+            if (select) select.value = pruebaId;
+            mostrarPrueba(pruebaId);
+        }
+
+        function mostrarPrueba(pruebaId) {
+            const prueba = pruebasJornada.find(p => p.id === pruebaId);
+            if (!prueba) return;
+
+            const tituloTabla = document.getElementById('titulo-tabla');
+            const tituloGrafico = document.getElementById('titulo-grafico');
+            const subtituloJornada = document.getElementById('subtitulo-jornada');
+
+            if (tituloTabla) tituloTabla.innerText = `Clasificación General - ${prueba.nombre}`;
+            if (tituloGrafico) tituloGrafico.innerText = `${prueba.nombre}`;
+            if (subtituloJornada) subtituloJornada.innerText = `Resultados oficiales de la prueba ${prueba.nombre}`;
+
+            renderizarJornada(prueba);
+        }
+
+        function buscarEnJornada() {
+            const input = document.getElementById('input-busqueda');
+            if (!input) return;
+            const texto = input.value.toLowerCase().trim();
+
+            const prueba = pruebasJornada.find(p => p.id === pruebaActivaId);
+            if (!prueba) return;
+
+            if (texto === '') {
+                renderizarJornada(prueba);
+                return;
+            }
+
+            const resultadosFiltrados = prueba.resultados.filter(r => 
+                (r.jinete && r.jinete.toLowerCase().includes(texto)) ||
+                (r.caballo && r.caballo.toLowerCase().includes(texto))
+            );
+
+            const pruebaClon = { ...prueba, resultados: resultadosFiltrados };
+            renderizarJornada(pruebaClon);
+        }
+
+        function renderizarJornada(prueba) {
+            const resultados = prueba.resultados;
+
+            const statPruebas = document.getElementById('stat-pruebas');
+            if (statPruebas) {
+                statPruebas.innerHTML = `
+                    <span style="font-size: 1.3rem; color: #1b5e20; font-weight: bold;">
+                        ${prueba.altura || '1.40 m'}
+                    </span>
+                    <br>
+                    <small style="font-size: 0.85rem; color: #555; font-weight: normal;">
+                        ${prueba.baremo || 'Baremo A con cronómetro'}
+                    </small>
+                `;
+            }
+
+            const statBinomios = document.getElementById('stat-binomios');
+            if (statBinomios) statBinomios.innerText = resultados.length;
+
+            const statCeros = document.getElementById('stat-ceros');
+            const ceros = resultados.filter(r => {
+                if (prueba.esDobleFase) return r.totalPuntos === 0;
+                return r.puntos === 0;
+            }).length;
+            if (statCeros) statCeros.innerText = ceros;
+
+            const statTiempo = document.getElementById('stat-tiempo');
+            if (statTiempo) {
+                const tiemposValidos = resultados
+                    .map(r => parseFloat(r.tiempo))
+                    .filter(t => !isNaN(t) && t > 0);
+                statTiempo.innerText = tiemposValidos.length > 0 ? `${Math.min(...tiemposValidos)}s` : '--';
+            }
+
+            const tabla = document.getElementById('tabla-resultados');
+            if (!tabla) return;
+
+            let htmlTabla = '';
+            if (prueba.esDobleFase) {
+                htmlTabla = `
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Jinete / Amazona</th>
+                            <th>Caballo</th>
+                            <th>Fase 1 Pts</th>
+                            <th>Fase 1 Tpo</th>
+                            <th>Fase 2 Pts</th>
+                            <th>Fase 2 Tpo</th>
+                            <th>Total Pts</th>
+                            <th>Premio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${resultados.map(r => `
+                            <tr>
+                                <td><b>${r.pos}</b></td>
+                                <td>${r.jinete}</td>
+                                <td>${r.caballo}</td>
+                                <td>${r.fase1Puntos}</td>
+                                <td>${r.fase1Tiempo}</td>
+                                <td>${r.fase2Puntos}</td>
+                                <td>${r.fase2Tiempo}</td>
+                                <td><b>${r.totalPuntos}</b></td>
+                                <td>${r.premio}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+            } else {
+                htmlTabla = `
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Jinete / Amazona</th>
+                            <th>Caballo</th>
+                            <th>Puntos</th>
+                            <th>Tiempo</th>
+                            <th>Premio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${resultados.map(r => `
+                            <tr>
+                                <td><b>${r.pos}</b></td>
+                                <td>${r.jinete}</td>
+                                <td>${r.caballo}</td>
+                                <td>${r.puntos}</td>
+                                <td>${r.tiempo}</td>
+                                <td>${r.premio}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+            }
+            tabla.innerHTML = htmlTabla;
+        }
+    </script>
+</body>
+</html>
